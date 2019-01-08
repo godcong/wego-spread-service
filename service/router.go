@@ -10,15 +10,21 @@ import (
 
 // Router ...
 func Router(eng *gin.Engine) {
-
 	verV0 := "v0"
 	eng.NoRoute(func(ctx *gin.Context) {
-		log.Println("no route")
+		log.Println("no route", ctx.Request.URL.Path)
+		log.Println("uri", ctx.Request.RequestURI)
+
+		if ctx.Request.RequestURI == "/install" && isInstalled() {
+			ctx.JSON(http.StatusNotFound, gin.H{})
+			return
+		}
 		dir, file := path.Split(ctx.Request.RequestURI)
 		ext := filepath.Ext(file)
 		if file == "" || ext == "" {
 			ctx.File("./dist/index.html")
 		} else {
+			log.Println(dir, file)
 			ctx.File("./dist/" + path.Join(dir, file))
 		}
 	})
@@ -38,6 +44,10 @@ func Router(eng *gin.Engine) {
 	//
 	//g0.POST("genesis", GenesisGet(verV0))
 
+}
+
+func isInstalled() bool {
+	return false
 }
 
 func AccessControlAllow(ctx *gin.Context) {
