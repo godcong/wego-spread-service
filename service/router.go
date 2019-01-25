@@ -7,7 +7,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"path"
 )
 
 // Router ...
@@ -17,16 +16,18 @@ func Router(eng *gin.Engine) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	eng.NoRoute(func(ctx *gin.Context) {
-		_, file := path.Split(ctx.Request.URL.Path)
-		open, err := staticFS.Open(ctx.Request.URL.Path)
-		if file == "" || err != nil {
-			open, err = staticFS.Open("/index.html")
+		opened, err := staticFS.Open(ctx.Request.URL.Path)
+		if ctx.Request.URL.Path == "/" || err != nil {
+			opened, err = staticFS.Open("/index.html")
 			if err != nil {
-				panic(err)
+				ctx.AbortWithStatus(http.StatusNotFound)
+				return
 			}
 		}
-		_, err = io.Copy(ctx.Writer, open)
+		ctx.Status(http.StatusOK)
+		_, err = io.Copy(ctx.Writer, opened)
 	})
 
 	eng.Use(AccessControlAllow)
