@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/godcong/wego-service/service"
+	"github.com/godcong/wego-manager-service/service"
 	"os"
 	"os/signal"
 	"syscall"

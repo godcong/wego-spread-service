@@ -1,30 +1,36 @@
 package service
 
 import (
+	"flag"
 	"github.com/gin-gonic/gin"
+	"github.com/godcong/wego-manager-service/config"
 	"log"
 	"net/http"
 )
 
 // service ...
 type service struct {
-	*gin.Engine
-	Server *http.Server
+	config *config.Configure
+	eng    *gin.Engine
+	server *http.Server
 }
 
-var server *service
+var global *service
+var configPath = flag.String("config", "config.toml", "load config from path")
 
 func init() {
-	server = defaultEngine()
+	flag.Parse()
+	cfg := config.InitLoader(*configPath)
+	global = initService(cfg)
 }
 
 // Start ...
 func Start() {
-	Router(server.Engine)
+	Router(global.eng)
 
 	go func() {
-		log.Printf("[GIN-debug] Listening and serving HTTP on %s\n", server.Server.Addr)
-		if err := server.Server.ListenAndServe(); err != nil {
+		log.Printf("[GIN-debug] Listening and serving HTTP on %s\n", global.server.Addr)
+		if err := global.server.ListenAndServe(); err != nil {
 			log.Printf("Httpserver: ListenAndServe() error: %s", err)
 		}
 	}()
@@ -33,14 +39,14 @@ func Start() {
 
 // Stop ...
 func Stop() error {
-	return server.Server.Shutdown(nil)
+	return global.server.Shutdown(nil)
 }
 
-func defaultEngine() *service {
+func initService(cfg *config.Configure) *service {
 	eng := gin.Default()
 	return &service{
-		Engine: eng,
-		Server: &http.Server{
+		eng: eng,
+		server: &http.Server{
 			Addr:    ":7788",
 			Handler: eng,
 		},
