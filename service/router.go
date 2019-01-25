@@ -2,34 +2,33 @@ package service
 
 import (
 	"github.com/gin-gonic/gin"
+	_ "github.com/godcong/wego-manager-service/statik"
+	"github.com/rakyll/statik/fs"
+	"io"
 	"log"
 	"net/http"
 	"path"
-	"path/filepath"
 )
 
 // Router ...
 func Router(eng *gin.Engine) {
 	verV0 := "v0"
+	staticFS, err := fs.New()
+	if err != nil {
+		log.Fatal(err)
+	}
 	eng.NoRoute(func(ctx *gin.Context) {
-		log.Println("no route", ctx.Request.URL.Path)
-		log.Println("uri", ctx.Request.RequestURI)
-
-		if ctx.Request.RequestURI == "/install" && isInstalled() {
-			ctx.JSON(http.StatusNotFound, gin.H{})
-			return
+		_, file := path.Split(ctx.Request.URL.Path)
+		open, err := staticFS.Open(ctx.Request.URL.Path)
+		if file == "" || err != nil {
+			open, err = staticFS.Open("/index.html")
+			if err != nil {
+				panic(err)
+			}
 		}
-		dir, file := path.Split(ctx.Request.RequestURI)
-		ext := filepath.Ext(file)
-		if file == "" || ext == "" {
-			ctx.File("./dist/index.html")
-		} else {
-			log.Println(dir, file)
-			ctx.File("./dist/" + path.Join(dir, file))
-		}
+		_, err = io.Copy(ctx.Writer, open)
 	})
 
-	//eng.Static("webui", "dist")
 	eng.Use(AccessControlAllow)
 	g0 := eng.Group(verV0)
 
