@@ -2,8 +2,9 @@ package model
 
 import (
 	"github.com/go-xorm/xorm"
-	"github.com/godcong/wego-auth-manager/config"
-	"github.com/godcong/wego-auth-manager/util"
+	"github.com/godcong/wego-spread-service/config"
+	"github.com/godcong/wego-spread-service/util"
+
 	"github.com/google/uuid"
 	"github.com/json-iterator/go"
 	log "github.com/sirupsen/logrus"
@@ -28,7 +29,6 @@ func DB() *DataBase {
 
 // Modeler ...
 type Modeler interface {
-	BeforeInsert()
 	GetID() string
 	Get() (bool, error)
 	Update(cols ...string) (int64, error)
@@ -81,11 +81,6 @@ func MustSession(session *xorm.Session) *xorm.Session {
 		session = DB().NewSession()
 	}
 	return session
-}
-
-// CSRF ...
-type CSRF struct {
-	CSRFToken string `json:"csrf_token"`
 }
 
 // Model ...
@@ -148,9 +143,9 @@ type TokenSub struct {
 }
 
 // DecodeUser ...
-func DecodeUser(token string) (*User, error) {
+func DecodeUser(token string) (*WechatUser, error) {
 	t := TokenSub{}
-	sub, err := util.DecryptJWT([]byte(globalDB.config.General.TokenKey), token)
+	sub, err := util.DecryptJWT([]byte(globalDB.config.WebToken.Key), token)
 	log.Info("sub", sub)
 	if err != nil {
 		return nil, err
@@ -162,5 +157,5 @@ func DecodeUser(token string) (*User, error) {
 			return nil, err
 		}
 	}
-	return &User{}, nil
+	return &WechatUser{}, nil
 }
