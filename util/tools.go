@@ -4,6 +4,8 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"fmt"
+	"github.com/godcong/wego/util"
+	"github.com/google/uuid"
 	"github.com/json-iterator/go"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/square/go-jose.v2"
@@ -156,4 +158,9 @@ func SHA256(v, key, salt string) string {
 // StructureName ...
 func StructureName(s interface{}) string {
 	return reflect.Indirect(reflect.ValueOf(s)).Type().Name()
+}
+
+// GenSpreadSign ...
+func GenSpreadSign() string {
+	return util.GenMD5(uuid.New().String())
 }
