@@ -6,6 +6,7 @@ import (
 	"github.com/godcong/wego-spread-service/cache"
 	"github.com/godcong/wego-spread-service/model"
 	"github.com/godcong/wego/core"
+	"github.com/godcong/wego/log"
 	"github.com/godcong/wego/util"
 	"github.com/google/uuid"
 	"golang.org/x/xerrors"
@@ -56,7 +57,42 @@ func TokenHook(userSign *string) wego.TokenHook {
 // UserHook ...
 func UserHook(userSign string, id string, t int) wego.UserHook {
 	return func(user *core.WechatUserInfo) []byte {
-		model.UserFromHook(user, id, t)
+		wu := model.UserFromHook(user, id, t)
+		if wu == nil {
+			log.Error(xerrors.New("null wechat user"))
+			return nil
+		}
+		i, e := model.Insert(nil, wu)
+		if e != nil || i == 0 {
+			log.Error(e, i)
+			return nil
+		}
+		parent := &model.Spread{
+			SelfSign: userSign,
+		}
+		b, e := model.Get(nil, parent)
+		if e != nil || !b {
+			log.Error(e, b)
+			//continue
+		}
+		spread := &model.Spread{
+			WechatUserID: wu.ID,
+			SelfSign:     wu.Sign,
+			ParentSign:   userSign,
+			ParentSign2:  parent.ParentSign,
+			ParentSign3:  parent.ParentSign2,
+			ParentSign4:  parent.ParentSign3,
+			ParentSign5:  parent.ParentSign4,
+			ParentSign6:  parent.ParentSign5,
+			ParentSign7:  parent.ParentSign6,
+			ParentSign8:  parent.ParentSign7,
+			ParentSign9:  parent.ParentSign8,
+		}
+		i, e = model.Insert(nil, spread)
+		if e != nil || i == 0 {
+			log.Error(e, i)
+			return nil
+		}
 		return nil
 	}
 }
