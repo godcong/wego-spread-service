@@ -42,7 +42,7 @@ func AuthorizeNotify(ver string) gin.HandlerFunc {
 		}
 		userSign := ctx.Query("user")
 		account := wego.NewOfficialAccount(config.OfficialAccount)
-		account.HandleAuthorize(StateHook(userSign), TokenHook(&userSign), UserHook(userSign)).ServeHTTP(ctx.Writer, ctx.Request)
+		account.HandleAuthorize(StateHook(userSign), TokenHook(&userSign), UserHook(userSign, account.AppID, 0)).ServeHTTP(ctx.Writer, ctx.Request)
 	}
 }
 
