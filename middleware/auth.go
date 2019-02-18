@@ -2,9 +2,9 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/godcong/wego-auth-manager/config"
-	"github.com/godcong/wego-auth-manager/model"
-	"github.com/godcong/wego-auth-manager/util"
+	"github.com/godcong/wego-spread-service/config"
+	"github.com/godcong/wego-spread-service/model"
+	"github.com/godcong/wego-spread-service/util"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 	"strings"
@@ -26,13 +26,13 @@ func AuthCheck(ver string) gin.HandlerFunc {
 			err = xerrors.New("token is null")
 			return
 		}
-		t, err := util.FromToken(config.Config().General.TokenKey, token)
+		t, err := util.FromToken(config.Config().WebToken.Key, token)
 		if err != nil {
 			return
 		}
 		log.Printf("%+v", t)
 
-		user := model.User{}
+		user := model.WechatUser{}
 		user.ID = t.UID
 		b, err := user.Get()
 		if err != nil {
@@ -55,9 +55,9 @@ func AuthCheck(ver string) gin.HandlerFunc {
 }
 
 // User ...
-func User(ctx *gin.Context) *model.User {
+func User(ctx *gin.Context) *model.WechatUser {
 	if v, b := ctx.Get("user"); b {
-		if v0, b := v.(*model.User); b {
+		if v0, b := v.(*model.WechatUser); b {
 			log.Printf("%+v\n", v0)
 			return v0
 		}

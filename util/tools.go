@@ -128,16 +128,20 @@ func DecryptJWT(key []byte, token string) (string, error) {
 }
 
 // EncryptJWT ...
-func EncryptJWT(key []byte, sub []byte) (string, error) {
+func EncryptJWT(key []byte, sub []byte, expiry ...time.Duration) (string, error) {
 	sig, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.HS256, Key: key}, (&jose.SignerOptions{}).WithType("JWT"))
 	if err != nil {
 		return "", nil
 	}
+	if expiry == nil {
+		expiry = []time.Duration{time.Hour * 14 * 24}
+	}
+
 	cl := jwt.Claims{
 		Subject:   string(sub),
 		Issuer:    "godcong",
 		IssuedAt:  jwt.NewNumericDate(time.Now()),
-		Expiry:    jwt.NewNumericDate(time.Now().Add(time.Hour * 24 * 14)),
+		Expiry:    jwt.NewNumericDate(time.Now().Add(expiry[0])),
 		NotBefore: jwt.NewNumericDate(time.Now()),
 		ID:        GenerateRandomString(16),
 	}

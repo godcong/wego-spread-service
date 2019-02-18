@@ -1,6 +1,7 @@
 package util
 
 import (
+	"github.com/godcong/wego-spread-service/model"
 	"github.com/json-iterator/go"
 	log "github.com/sirupsen/logrus"
 	"time"
@@ -8,17 +9,19 @@ import (
 
 // WebToken ...
 type WebToken struct {
-	UID           string `json:"oid"`
-	Username      string `json:"username"`
-	Nickname      string `json:"nickname"`
-	EffectiveTime int64  `json:"effective_time"`
+	UID      string `json:"oid"`
+	Nickname string `json:"nickname"`
+	//TODO:will add
 }
 
+// ExpireTime ...
+var ExpireTime = time.Hour * 24 * 7
+
 // NewWebToken ...
-func NewWebToken(uid string) *WebToken {
+func NewWebToken(user *model.WechatUser) *WebToken {
 	return &WebToken{
-		UID:           uid,
-		EffectiveTime: time.Now().Unix() + 3600*24*7,
+		UID:      user.ID,
+		Nickname: user.Nickname,
 	}
 }
 
@@ -28,7 +31,7 @@ func ToToken(key string, token *WebToken) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	jwt, err := EncryptJWT([]byte(key), sub)
+	jwt, err := EncryptJWT([]byte(key), sub, ExpireTime)
 	return jwt, err
 }
 
@@ -47,5 +50,6 @@ func FromToken(key, token string) (*WebToken, error) {
 			return nil, err
 		}
 	}
+
 	return &t, nil
 }
