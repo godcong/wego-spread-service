@@ -20,31 +20,11 @@ func Authorize(ver string) gin.HandlerFunc {
 	}
 }
 
-// CachedConfig ...
-func CachedConfig(sign string) (*wego.Config, error) {
-	config := cache.GetSignConfig(sign)
-	if config == nil {
-		p := model.Property{
-			Sign: sign,
-		}
-		b, e := model.Get(nil, &p)
-		if e != nil {
-			return nil, e
-		}
-		if !b {
-			return nil, xerrors.New("no found")
-		}
-		config = p.Config()
-		cache.SetSignConfig(sign, config)
-	}
-	return config, nil
-}
-
 // AuthorizeSignNotify ...
 func AuthorizeSignNotify(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		sign := ctx.Param("sign")
-		config, e := CachedConfig(sign)
+		config, e := model.CachedConfig(sign)
 		if e != nil {
 			Error(ctx, e)
 		}

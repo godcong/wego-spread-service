@@ -1,7 +1,6 @@
 package util
 
 import (
-	"github.com/godcong/wego-spread-service/model"
 	"github.com/json-iterator/go"
 	log "github.com/sirupsen/logrus"
 	"time"
@@ -18,10 +17,10 @@ type WebToken struct {
 var ExpireTime = time.Hour * 24 * 7
 
 // NewWebToken ...
-func NewWebToken(user *model.User) *WebToken {
+func NewWebToken(id, name string) *WebToken {
 	return &WebToken{
-		UID:      user.ID,
-		Nickname: user.Nickname,
+		UID:      id,
+		Nickname: name,
 	}
 }
 

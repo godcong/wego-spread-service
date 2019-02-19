@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/godcong/wego"
 	"github.com/godcong/wego/cache"
-	"github.com/godcong/wego/log"
+	log "github.com/sirupsen/logrus"
 )
 
 // InitPropertyCache ...

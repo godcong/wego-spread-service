@@ -2,7 +2,7 @@ package cache
 
 import (
 	"github.com/godcong/wego/cache"
-	"github.com/godcong/wego/log"
+	log "github.com/sirupsen/logrus"
 )
 
 // InitStateCache ...

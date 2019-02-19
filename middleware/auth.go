@@ -53,14 +53,3 @@ func AuthCheck(ver string) gin.HandlerFunc {
 		ctx.Next()
 	}
 }
-
-// User ...
-func User(ctx *gin.Context) *model.WechatUser {
-	if v, b := ctx.Get("user"); b {
-		if v0, b := v.(*model.WechatUser); b {
-			log.Printf("%+v\n", v0)
-			return v0
-		}
-	}
-	return nil
-}
