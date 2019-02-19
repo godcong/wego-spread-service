@@ -31,7 +31,7 @@ func Router(server *HTTPServer) *gin.Engine {
 
 	spread := eng.Group("spread")
 
-	spread.GET("/:sign/authorize", controller.AuthorizeNotify(version))
+	spread.GET("/:sign/authorize", controller.AuthorizeSignNotify(version))
 
 	////登录
 	//g0.POST("login", LoginPOST(verV0))

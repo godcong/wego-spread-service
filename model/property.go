@@ -2,7 +2,9 @@ package model
 
 import (
 	"github.com/godcong/wego"
-	"github.com/godcong/wego/log"
+	"github.com/godcong/wego-auth-manager/model"
+	"github.com/godcong/wego-spread-service/cache"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 )
 
@@ -16,7 +18,7 @@ type OAuth struct {
 type Property struct {
 	Model       `xorm:"extends" json:",inline"`
 	UserID      string   `xorm:"user_id" json:"user_id"`
-	Sign        string   `xorm:"sign" json:"sign"`
+	Sign        string   `xorm:"sign" json:"sign"` //配置唯一识别码
 	AppID       string   `xorm:"unique app_id " json:"app_id"`
 	MchID       string   `xorm:"mch_id" json:"mch_id"`
 	MchKey      string   `xorm:"mch_key" json:"mch_key"`
@@ -81,4 +83,24 @@ func (obj *Property) Config() *wego.Config {
 		OAuth:       config.OAuth,
 	}
 	return &config
+}
+
+// CachedConfig ...
+func CachedConfig(sign string) (*wego.Config, error) {
+	config := cache.GetSignConfig(sign)
+	if config == nil {
+		p := Property{
+			Sign: sign,
+		}
+		b, e := model.Get(nil, &p)
+		if e != nil {
+			return nil, e
+		}
+		if !b {
+			return nil, xerrors.New("no found")
+		}
+		config = p.Config()
+		cache.SetSignConfig(sign, config)
+	}
+	return config, nil
 }
