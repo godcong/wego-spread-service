@@ -18,7 +18,7 @@ type WebToken struct {
 var ExpireTime = time.Hour * 24 * 7
 
 // NewWebToken ...
-func NewWebToken(user *model.WechatUser) *WebToken {
+func NewWebToken(user *model.User) *WebToken {
 	return &WebToken{
 		UID:      user.ID,
 		Nickname: user.Nickname,

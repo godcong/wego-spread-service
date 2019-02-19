@@ -2,7 +2,6 @@ package model
 
 import (
 	"github.com/godcong/wego"
-	"github.com/godcong/wego-auth-manager/model"
 	"github.com/godcong/wego-spread-service/cache"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
@@ -83,24 +82,4 @@ func (obj *Property) Config() *wego.Config {
 		OAuth:       config.OAuth,
 	}
 	return &config
-}
-
-// CachedConfig ...
-func CachedConfig(sign string) (*wego.Config, error) {
-	config := cache.GetSignConfig(sign)
-	if config == nil {
-		p := Property{
-			Sign: sign,
-		}
-		b, e := model.Get(nil, &p)
-		if e != nil {
-			return nil, e
-		}
-		if !b {
-			return nil, xerrors.New("no found")
-		}
-		config = p.Config()
-		cache.SetSignConfig(sign, config)
-	}
-	return config, nil
 }
