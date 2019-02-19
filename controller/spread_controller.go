@@ -6,7 +6,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// SpreadList ...
+// SpreadList 推广列表
 func SpreadList(ver) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		weuser := model.GetWechatUser(ctx)
