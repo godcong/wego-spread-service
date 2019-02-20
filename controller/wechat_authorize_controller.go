@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-xorm/xorm"
 	"github.com/godcong/wego"
+	"github.com/godcong/wego-auth-manager/model"
 	"github.com/godcong/wego-spread-service/cache"
-	"github.com/godcong/wego-spread-service/model"
 	"github.com/godcong/wego/core"
 	"github.com/godcong/wego/util"
 	"github.com/google/uuid"
@@ -24,7 +24,7 @@ func Authorize(ver string) gin.HandlerFunc {
 func AuthorizeActivitySpreadNotify(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		act := ctx.Param("activity")
-		config, e := model.CachedConfig(act)
+		config, e := cache.CachedConfig(act)
 		if e != nil {
 			log.Error(e)
 			Error(ctx, e)

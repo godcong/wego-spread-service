@@ -3,6 +3,7 @@ package cache
 import (
 	"encoding/json"
 	"github.com/godcong/wego"
+	"github.com/godcong/wego-auth-manager/model"
 	"github.com/godcong/wego/cache"
 	log "github.com/sirupsen/logrus"
 )
@@ -63,4 +64,21 @@ func SetSignConfig(sign string, config *wego.Config) {
 		return
 	}
 	c.Set(PropertyKey(sign), string(bytes))
+}
+
+// CachedConfig ...
+func CachedConfig(code string) (*wego.Config, error) {
+	config := GetSignConfig(code)
+	if config == nil {
+		act := model.Activity{
+			Code: code,
+		}
+		p, e := act.CodeProperty()
+		if e != nil {
+			return nil, e
+		}
+		config = p.Config()
+		SetSignConfig(code, config)
+	}
+	return config, nil
 }

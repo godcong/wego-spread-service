@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/godcong/wego-auth-manager/model"
 	"github.com/godcong/wego-spread-service/config"
-	"github.com/godcong/wego-spread-service/model"
 	"github.com/godcong/wego-spread-service/util"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
@@ -32,7 +32,7 @@ func AuthCheck(ver string) gin.HandlerFunc {
 		}
 		log.Printf("%+v", t)
 
-		user := model.WechatUser{}
+		user := model.User{}
 		user.ID = t.UID
 		b, err := user.Get()
 		if err != nil {

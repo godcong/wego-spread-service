@@ -22,7 +22,7 @@ func PermissionCheck(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		log.Debug(strings.Split(ctx.Request.URL.Path, "/"))
 		var err error
-		user := User(ctx)
+		user := model.GetUser(ctx)
 		roles, err := user.Roles()
 		defer func() {
 			if err != nil {
