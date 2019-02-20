@@ -20,11 +20,11 @@ func Authorize(ver string) gin.HandlerFunc {
 	}
 }
 
-// AuthorizeSignNotify ...
-func AuthorizeSignNotify(ver string) gin.HandlerFunc {
+// AuthorizeActivitySpreadNotify ...
+func AuthorizeActivitySpreadNotify(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		sign := ctx.Param("sign")
-		config, e := model.CachedConfig(sign)
+		act := ctx.Param("activity")
+		config, e := model.CachedConfig(act)
 		if e != nil {
 			Error(ctx, e)
 		}
@@ -78,7 +78,17 @@ func UserHook(userSign string, id string, t int) wego.UserHook {
 			}
 
 			parent := &model.Spread{
-				SelfSign: userSign,
+				ActivityID:    "",
+				UserID:        user.ID,
+				ParentUserID1: "",
+				ParentUserID2: "",
+				ParentUserID3: "",
+				ParentUserID4: "",
+				ParentUserID5: "",
+				ParentUserID6: "",
+				ParentUserID7: "",
+				ParentUserID8: "",
+				ParentUserID9: "",
 			}
 			b, e := model.Get(nil, parent)
 			if e != nil || !b {

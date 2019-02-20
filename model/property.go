@@ -85,7 +85,7 @@ func (obj *Property) Config() *wego.Config {
 }
 
 // CachedConfig ...
-func CachedConfig(sign string) (*wego.Config, error) {
+func CachedConfig(act string) (*wego.Config, error) {
 	config := cache.GetSignConfig(sign)
 	if config == nil {
 		p := Property{
