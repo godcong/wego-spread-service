@@ -49,5 +49,5 @@ func SetStateSign(key string, sign string) {
 		log.Debug("no property cache")
 		return
 	}
-	c.Set(StateKey(key), sign)
+	c.SetWithTTL(StateKey(key), sign, 1800) //only keep 1800s
 }

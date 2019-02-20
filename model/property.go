@@ -85,21 +85,18 @@ func (obj *Property) Config() *wego.Config {
 }
 
 // CachedConfig ...
-func CachedConfig(act string) (*wego.Config, error) {
-	config := cache.GetSignConfig(sign)
+func CachedConfig(code string) (*wego.Config, error) {
+	config := cache.GetSignConfig(code)
 	if config == nil {
-		p := Property{
-			Sign: sign,
+		act := Activity{
+			Code: code,
 		}
-		b, e := Get(nil, &p)
+		p, e := act.CodeProperty()
 		if e != nil {
 			return nil, e
 		}
-		if !b {
-			return nil, xerrors.New("no found")
-		}
 		config = p.Config()
-		cache.SetSignConfig(sign, config)
+		cache.SetSignConfig(code, config)
 	}
 	return config, nil
 }

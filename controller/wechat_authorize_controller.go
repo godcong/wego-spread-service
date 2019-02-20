@@ -28,22 +28,22 @@ func AuthorizeActivitySpreadNotify(ver string) gin.HandlerFunc {
 		if e != nil {
 			Error(ctx, e)
 		}
-		userSign := ctx.Query("user")
+		code := ctx.Query("user") //user spread code
 		account := wego.NewOfficialAccount(config.OfficialAccount)
-		account.HandleAuthorize(StateHook(userSign), TokenHook(&userSign), UserHook(userSign, account.AppID, 0)).ServeHTTP(ctx.Writer, ctx.Request)
+		account.HandleAuthorize(StateHook(code), TokenHook(&code), UserHook(usecoderSign, account.AppID, 0)).ServeHTTP(ctx.Writer, ctx.Request)
 	}
 }
 
 // TokenHook ...
-func TokenHook(userSign *string) wego.TokenHook {
+func TokenHook(code *string) wego.TokenHook {
 	return func(token *core.Token, state string) []byte {
-		*userSign = cache.GetStateSign(state)
+		*code = cache.GetStateSign(state)
 		return nil
 	}
 }
 
 // UserHook ...
-func UserHook(userSign string, id string, t int) wego.UserHook {
+func UserHook(code string, id string, t int) wego.UserHook {
 	return func(user *core.WechatUserInfo) []byte {
 		_, e := model.DB().Transaction(func(session *xorm.Session) (v interface{}, e error) {
 			weuser := model.UserFromHook(user, id, t)
@@ -56,25 +56,26 @@ func UserHook(userSign string, id string, t int) wego.UserHook {
 			if weuser == nil {
 				return nil, xerrors.New("null wechat user")
 			}
-			i, e := model.Insert(nil, weuser)
-			if e != nil || i == 0 {
-				log.Error("wechat user insert:", e, i)
-				return nil, xerrors.New("wechat user insert error")
-			}
 
 			user := &model.User{
-				Model:        model.Model{},
-				WechatUserID: weuser.ID,
-				UserType:     model.UserTypeUser,
-				Nickname:     weuser.Nickname,
-				Sign:         util.CRC32(weuser.ID),
-				Token:        "",
-				Salt:         util.GenerateRandomString(16),
+				Model:    model.Model{},
+				UserType: model.UserTypeUser,
+				Nickname: weuser.Nickname,
+				Sign:     util.CRC32(weuser.ID),
+				Token:    "",
+				Salt:     util.GenerateRandomString(16),
 			}
-			i, e = model.Insert(nil, user)
+			i, e := model.Insert(nil, user)
 			if e != nil || i == 0 {
 				log.Error("user insert:", e, i)
 				return nil, xerrors.New("user insert error")
+			}
+
+			weuser.UserID = user.ID
+			i, e = model.Insert(nil, weuser)
+			if e != nil || i == 0 {
+				log.Error("wechat user insert:", e, i)
+				return nil, xerrors.New("wechat user insert error")
 			}
 
 			parent := &model.Spread{
@@ -98,7 +99,7 @@ func UserHook(userSign string, id string, t int) wego.UserHook {
 			spread := &model.Spread{
 				WechatUserID: weuser.ID,
 				SelfSign:     user.Sign,
-				ParentSign:   userSign,
+				ParentSign:   code,
 				ParentSign2:  parent.ParentSign,
 				ParentSign3:  parent.ParentSign2,
 				ParentSign4:  parent.ParentSign3,
@@ -123,10 +124,10 @@ func UserHook(userSign string, id string, t int) wego.UserHook {
 }
 
 // StateHook ...
-func StateHook(userSign string) wego.StateHook {
+func StateHook(code string) wego.StateHook {
 	return func() string {
 		key := util.GenMD5(uuid.New().String())
-		cache.SetStateSign(key, userSign)
+		cache.SetStateSign(key, code)
 		return key
 	}
 }
