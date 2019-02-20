@@ -24,8 +24,10 @@ type WechatUser struct {
 // UserFromHook ...
 func UserFromHook(info *core.WechatUserInfo, id string, typ int) *WechatUser {
 	return &WechatUser{
+		Model:          Model{},
+		UserID:         "",
 		AppID:          id,
-		Type:           typ,
+		WechatType:     "",
 		WechatUserInfo: info,
 	}
 }

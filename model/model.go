@@ -126,6 +126,10 @@ func InitDB(cfg *config.Configure) *DataBase {
 	if err != nil {
 		panic(err)
 	}
+	//use lru cache
+	cacher := xorm.NewLRUCacher(xorm.NewMemoryStore(), 2048)
+	engine.SetDefaultCacher(cacher)
+
 	if cfg.Database.ShowSQL {
 		engine.ShowSQL(true)
 	}
