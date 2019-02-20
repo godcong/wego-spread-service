@@ -87,6 +87,12 @@ func UserHook(code string, id string, t int) wego.UserHook {
 				return nil, xerrors.New("wechat user insert error")
 			}
 
+			ua.SpreadNumber++
+			i, e = model.Update(nil, ua.ID, ua)
+			if e != nil || i == 0 {
+				log.Error("user activity update:", e, i)
+				return nil, xerrors.New("user activity update error")
+			}
 			spread := &model.Spread{
 				Code:          code,
 				UserID:        user.ID,
