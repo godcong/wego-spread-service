@@ -2,8 +2,9 @@ package model
 
 // Spread ...
 type Spread struct {
-	Model         `xorm:"extends"`
-	ActivityID    string `json:"activity_id"`
+	Model `xorm:"extends"`
+	//ActivityID    string `json:"activity_id"`
+	//Code          string `json:"code"`
 	UserID        string `json:"user_id"`
 	ParentUserID1 string `json:"parent_user_id_1 comment(上1级)"`
 	ParentUserID2 string `json:"parent_user_id_2 comment(上2级)"`

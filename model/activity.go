@@ -1,7 +1,6 @@
 package model
 
 import (
-	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 )
 
@@ -31,12 +30,10 @@ func (obj *Activity) CodeProperty() (*Property, error) {
 	b, e := DB().Table(obj).Join("left", info.Property, "activity.property_id = property.id").
 		Where("activity.code = ?", obj.Code).Get(&info)
 	if e != nil {
-		log.Error(e)
 		return nil, e
 	}
 	if !b {
 		e = xerrors.New("property not found")
-		log.Error(e)
 		return nil, e
 	}
 	return info.Property, nil

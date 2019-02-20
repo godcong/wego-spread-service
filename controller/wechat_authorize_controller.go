@@ -26,11 +26,13 @@ func AuthorizeActivitySpreadNotify(ver string) gin.HandlerFunc {
 		act := ctx.Param("activity")
 		config, e := model.CachedConfig(act)
 		if e != nil {
+			log.Error(e)
 			Error(ctx, e)
+			return
 		}
 		code := ctx.Query("user") //user spread code
 		account := wego.NewOfficialAccount(config.OfficialAccount)
-		account.HandleAuthorize(StateHook(code), TokenHook(&code), UserHook(usecoderSign, account.AppID, 0)).ServeHTTP(ctx.Writer, ctx.Request)
+		account.HandleAuthorize(StateHook(code), TokenHook(&code), UserHook(code, account.AppID, 0)).ServeHTTP(ctx.Writer, ctx.Request)
 	}
 }
 
@@ -71,6 +73,13 @@ func UserHook(code string, id string, t int) wego.UserHook {
 				return nil, xerrors.New("user insert error")
 			}
 
+			ua := &model.UserActivity{
+				SpreadCode: code,
+			}
+			parent, e := ua.CodeSpread()
+			if e != nil {
+				return nil, e
+			}
 			weuser.UserID = user.ID
 			i, e = model.Insert(nil, weuser)
 			if e != nil || i == 0 {
@@ -78,36 +87,17 @@ func UserHook(code string, id string, t int) wego.UserHook {
 				return nil, xerrors.New("wechat user insert error")
 			}
 
-			parent := &model.Spread{
-				ActivityID:    "",
-				UserID:        user.ID,
-				ParentUserID1: "",
-				ParentUserID2: "",
-				ParentUserID3: "",
-				ParentUserID4: "",
-				ParentUserID5: "",
-				ParentUserID6: "",
-				ParentUserID7: "",
-				ParentUserID8: "",
-				ParentUserID9: "",
-			}
-			b, e := model.Get(nil, parent)
-			if e != nil || !b {
-				log.Error("parent:", b)
-				//continue
-			}
 			spread := &model.Spread{
-				WechatUserID: weuser.ID,
-				SelfSign:     user.Sign,
-				ParentSign:   code,
-				ParentSign2:  parent.ParentSign,
-				ParentSign3:  parent.ParentSign2,
-				ParentSign4:  parent.ParentSign3,
-				ParentSign5:  parent.ParentSign4,
-				ParentSign6:  parent.ParentSign5,
-				ParentSign7:  parent.ParentSign6,
-				ParentSign8:  parent.ParentSign7,
-				ParentSign9:  parent.ParentSign8,
+				UserID:        user.ID,
+				ParentUserID1: parent.UserID,
+				ParentUserID2: parent.ParentUserID1,
+				ParentUserID3: parent.ParentUserID2,
+				ParentUserID4: parent.ParentUserID3,
+				ParentUserID5: parent.ParentUserID4,
+				ParentUserID6: parent.ParentUserID5,
+				ParentUserID7: parent.ParentUserID6,
+				ParentUserID8: parent.ParentUserID7,
+				ParentUserID9: parent.ParentUserID8,
 			}
 			i, e = model.Insert(nil, spread)
 			if e != nil || i == 0 {
