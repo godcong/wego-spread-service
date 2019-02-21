@@ -63,9 +63,9 @@ func UserHook(code string, id string, t int) wego.UserHook {
 				Model:    model.Model{},
 				UserType: model.UserTypeUser,
 				Nickname: weuser.Nickname,
-				Sign:     util.CRC32(weuser.ID),
-				Token:    "",
-				Salt:     util.GenerateRandomString(16),
+				//Sign:     util.CRC32(weuser.ID),
+				Token: "",
+				Salt:  util.GenerateRandomString(16),
 			}
 			i, e := model.Insert(nil, user)
 			if e != nil || i == 0 {

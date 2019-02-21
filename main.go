@@ -6,10 +6,9 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/godcong/wego-auth-manager/config"
+	"github.com/godcong/wego-auth-manager/log"
 	"github.com/godcong/wego-auth-manager/model"
 	"github.com/godcong/wego-spread-service/service"
-	log "github.com/sirupsen/logrus"
-	"io"
 	"os"
 	"os/signal"
 	"syscall"
@@ -20,12 +19,8 @@ var logPath = flag.String("log", "spread.log", "set log name")
 
 func main() {
 	flag.Parse()
-	file, err := os.OpenFile(*logPath, os.O_SYNC|os.O_RDWR|os.O_CREATE|os.O_APPEND, os.ModePerm)
-	if err != nil {
-		panic(err)
-	}
-	log.SetOutput(io.MultiWriter(file, os.Stdout))
-	log.SetFormatter(&log.JSONFormatter{})
+
+	log.InitLog("wego-spread-service")
 	sigs := make(chan os.Signal, 1)
 	done := make(chan bool, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
@@ -43,4 +38,17 @@ func main() {
 		done <- true
 	}()
 	<-done
+}
+
+func initLog() {
+	//client, err := elastic.NewClient(elastic.SetSniff(false), elastic.SetURL("http://localhost:9200"))
+	//if err != nil {
+	//	log.Panic(err)
+	//}
+	//
+	//t, err := elogrus.NewElasticHook(client, "localhost", log.TraceLevel, "ipfs-cluster-monitor")
+	//if err != nil {
+	//	log.Panic(err)
+	//}
+	//log.AddHook(t)
 }
