@@ -6,8 +6,8 @@ require (
 	github.com/go-redis/redis v6.14.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/xorm v0.7.1
-	github.com/godcong/wego v0.0.0-20190223183532-516dc21c3920
-	github.com/godcong/wego-auth-manager v0.0.0-20190223180644-43eab5f2462d
+	github.com/godcong/wego v0.0.0-20190223193229-7bdbf0095316
+	github.com/godcong/wego-auth-manager v0.0.0-20190223192042-d548fc79638f
 	github.com/google/uuid v1.1.0
 	github.com/json-iterator/go v1.1.5
 	github.com/pelletier/go-toml v1.2.0
