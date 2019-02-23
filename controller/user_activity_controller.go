@@ -13,9 +13,8 @@ func UserActivityList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := model.GetUser(ctx)
 		page := model.PageUserActivity(model.ParsePaginate(ctx.Request.URL.Query()))
-		e := page.PageWhere(&model.UserActivity{
-			UserID: user.ID,
-		})
+		e := page.PageWhere(model.Where("user_id = ?", user.ID))
+
 		if e != nil {
 			Error(ctx, e)
 			return

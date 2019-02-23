@@ -25,7 +25,7 @@ func UserSpreadShareGet(ver string) gin.HandlerFunc {
 		user := model.GetUser(ctx)
 		act := model.NewUserActivity(id)
 		act.UserID = user.ID
-		p, e := act.Property()
+		p, e := act.Property(model.Where("user_activity.verified = ?", true))
 		if e != nil {
 			Error(ctx, e)
 			return
