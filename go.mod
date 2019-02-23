@@ -5,8 +5,8 @@ require (
 	github.com/gin-gonic/nosurf v0.0.0-20150415101651-45adcfcaf706
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/xorm v0.7.1
-	github.com/godcong/wego v0.0.0-20190223094114-244a4d32607b
-	github.com/godcong/wego-auth-manager v0.0.0-20190221212547-baa3d19c9169
+	github.com/godcong/wego v0.0.0-20190223165654-4ef4b4f4455c
+	github.com/godcong/wego-auth-manager v0.0.0-20190223165342-bb971bddd05c
 	github.com/google/uuid v1.1.0
 	github.com/json-iterator/go v1.1.5
 	github.com/pelletier/go-toml v1.2.0
