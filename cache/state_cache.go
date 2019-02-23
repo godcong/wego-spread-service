@@ -42,6 +42,16 @@ func GetStateSign(key string) string {
 	return ""
 }
 
+// DeleteStateSign ...
+func DeleteStateSign(sign string) {
+	c := PropertyCache()
+	if c == nil {
+		log.Debug("no property cache")
+		return
+	}
+	c.Delete(StateKey(sign))
+}
+
 // SetStateSign ...
 func SetStateSign(key string, sign string) {
 	c := PropertyCache()

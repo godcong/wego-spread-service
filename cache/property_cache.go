@@ -66,6 +66,16 @@ func SetSignConfig(sign string, config *wego.Config) {
 	c.Set(PropertyKey(sign), string(bytes))
 }
 
+// DeleteSignConfig ...
+func DeleteSignConfig(sign string) {
+	c := PropertyCache()
+	if c == nil {
+		log.Debug("no property cache")
+		return
+	}
+	c.Delete(PropertyKey(sign))
+}
+
 // CachedConfig ...
 func CachedConfig(code string) (*wego.Config, error) {
 	config := GetSignConfig(code)
