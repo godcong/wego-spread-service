@@ -31,13 +31,11 @@ func Router(server *HTTPServer) *gin.Engine {
 	//})
 	eng.Use(middleware.AuthCheck(version))
 
-	activity := eng.Group("activity")
-	activity.GET("share", controller.ActivityShareGet(version))
-
 	spread := eng.Group("spread")
 	spread.GET("authorize/:activity/:spread/*uri", controller.AuthorizeActivitySpreadNotify(version))
-	spread.GET("activity", controller.UserActivityList(version))
-	spread.POST("activity/:id", controller.UserActivityJoin(version))
+	spread.GET("user/activity", controller.UserActivityList(version))
+	spread.POST("user/activity/:id", controller.UserActivityJoin(version))
+	spread.GET("activity/:id/share", controller.ActivityShareGet(version))
 
 	////登录
 	//g0.POST("login", LoginPOST(verV0))

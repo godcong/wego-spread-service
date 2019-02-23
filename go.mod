@@ -3,10 +3,11 @@ module github.com/godcong/wego-spread-service
 require (
 	github.com/gin-gonic/gin v1.3.0
 	github.com/gin-gonic/nosurf v0.0.0-20150415101651-45adcfcaf706
+	github.com/go-redis/redis v6.14.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/xorm v0.7.1
-	github.com/godcong/wego v0.0.0-20190223165654-4ef4b4f4455c
-	github.com/godcong/wego-auth-manager v0.0.0-20190223165342-bb971bddd05c
+	github.com/godcong/wego v0.0.0-20190223183532-516dc21c3920
+	github.com/godcong/wego-auth-manager v0.0.0-20190223180644-43eab5f2462d
 	github.com/google/uuid v1.1.0
 	github.com/json-iterator/go v1.1.5
 	github.com/pelletier/go-toml v1.2.0

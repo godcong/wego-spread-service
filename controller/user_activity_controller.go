@@ -16,7 +16,6 @@ func UserActivityList(ver string) gin.HandlerFunc {
 			UserID: user.ID,
 		})
 		if e != nil {
-			log.Error(e)
 			Error(ctx, e)
 			return
 		}

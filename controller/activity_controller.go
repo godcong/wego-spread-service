@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego"
 	"github.com/godcong/wego-auth-manager/model"
-	log "github.com/sirupsen/logrus"
+	"golang.org/x/xerrors"
 )
 
 // ActivityShareGet 活动分享
@@ -17,12 +17,15 @@ func ActivityShareGet(ver string) gin.HandlerFunc {
 
 		p, e := act.Property()
 		if e != nil {
-			log.Error(e)
 			Error(ctx, e)
 			return
 		}
 		jssdk := wego.NewJSSDK(p.Config().JSSDK)
 		config := jssdk.BuildConfig("")
+		if config == nil {
+			Error(ctx, xerrors.New("null config result"))
+			return
+		}
 		Success(ctx, config)
 	}
 }

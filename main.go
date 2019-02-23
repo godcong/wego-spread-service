@@ -5,9 +5,10 @@ import (
 	"flag"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/godcong/go-trait"
 	"github.com/godcong/wego-auth-manager/config"
-	"github.com/godcong/wego-auth-manager/log"
 	"github.com/godcong/wego-auth-manager/model"
+	"github.com/godcong/wego-spread-service/cache"
 	"github.com/godcong/wego-spread-service/service"
 	"os"
 	"os/signal"
@@ -16,17 +17,26 @@ import (
 
 var configPath = flag.String("config", "config.toml", "load config from path")
 var logPath = flag.String("log", "spread.log", "set log name")
+var elk = flag.Bool("elk", true, "set to open the elk")
 
 func main() {
 	flag.Parse()
 
-	log.InitLog("wego-spread-service")
+	if *elk {
+		trait.InitElasticLog("wego-spread-service", nil)
+	}
+
 	sigs := make(chan os.Signal, 1)
 	done := make(chan bool, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
 	cfg := config.InitConfig(*configPath)
 	model.InitDB(cfg)
+
+	c := cache.DefaultCache()
+	cache.InitWegoCache(c)
+	cache.InitStateCache(c)
+	cache.InitPropertyCache(c)
 
 	//start
 	service.Start(cfg)
