@@ -8,7 +8,7 @@ import (
 	"golang.org/x/xerrors"
 )
 
-// UserActivityList 我的活动
+// UserActivityList 我参加的活动
 func UserActivityList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := model.GetUser(ctx)
@@ -23,7 +23,7 @@ func UserActivityList(ver string) gin.HandlerFunc {
 	}
 }
 
-// UserActivityJoin 活动申请
+// UserActivityJoin 我申请的活动
 func UserActivityJoin(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := model.GetUser(ctx)
