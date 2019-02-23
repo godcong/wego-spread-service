@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-spread-service/controller"
+	"github.com/godcong/wego-spread-service/middleware"
 )
 
 // Router ...
@@ -28,6 +29,7 @@ func Router(server *HTTPServer) *gin.Engine {
 	//	ctx.Status(http.StatusOK)
 	//	_, err = io.Copy(ctx.Writer, opened)
 	//})
+	eng.Use(middleware.AuthCheck(version))
 
 	activity := eng.Group("activity")
 	activity.GET("share", controller.ActivityShareGet(version))

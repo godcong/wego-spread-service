@@ -21,7 +21,7 @@ func NewHTTPServer(cfg *config.Configure) *HTTPServer {
 	s := &HTTPServer{
 		Engine: gin.Default(),
 		config: cfg,
-		Port:   config.MustString(cfg.HTTP.Port, ":8080"),
+		Port:   config.MustString(cfg.HTTP.Port, ":8081"),
 	}
 	return s
 }
@@ -33,7 +33,7 @@ func (s *HTTPServer) Start() {
 		Handler: Router(s),
 	}
 	go func() {
-		log.Printf("Listening and serving HTTP on %s\n", s.Port)
+		log.Printf("Listening and serving HTTP on %s", s.Port)
 		if err := s.server.ListenAndServe(); err != nil {
 			log.Printf("Httpserver: ListenAndServe() error: %s", err)
 		}
