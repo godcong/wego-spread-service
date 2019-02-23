@@ -7,8 +7,8 @@ import (
 	"golang.org/x/xerrors"
 )
 
-// ActivityShareGet 活动分享
-func ActivityShareGet(ver string) gin.HandlerFunc {
+// UserActivityShareGet 活动分享
+func UserActivityShareGet(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
 		user := model.GetUser(ctx)

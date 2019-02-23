@@ -7,7 +7,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/xorm v0.7.1
 	github.com/godcong/wego v0.0.0-20190223193229-7bdbf0095316
-	github.com/godcong/wego-auth-manager v0.0.0-20190223192042-d548fc79638f
+	github.com/godcong/wego-auth-manager v0.0.0-20190223200434-16f09f83a6b2
 	github.com/google/uuid v1.1.0
 	github.com/json-iterator/go v1.1.5
 	github.com/pelletier/go-toml v1.2.0

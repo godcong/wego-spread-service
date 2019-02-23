@@ -35,7 +35,8 @@ func Router(server *HTTPServer) *gin.Engine {
 	spread.GET("authorize/:activity/:spread/*uri", controller.AuthorizeActivitySpreadNotify(version))
 	spread.GET("user/activity", controller.UserActivityList(version))
 	spread.POST("user/activity/:code", controller.UserActivityJoin(version))
-	spread.GET("activity/:id/share", controller.ActivityShareGet(version))
+	spread.GET("activity/:id/share", controller.UserActivityShareGet(version))
+	spread.GET("spread/:id/share", controller.UserSpreadShareGet(version))
 
 	////登录
 	//g0.POST("login", LoginPOST(verV0))
