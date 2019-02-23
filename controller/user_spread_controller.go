@@ -4,21 +4,23 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego"
 	"github.com/godcong/wego-auth-manager/model"
-
-	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 )
 
 // UserSpreadList 我的推广
 func UserSpreadList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		//TODO
 		user := model.GetUser(ctx)
-		log.Error(user)
+		spreads, e := user.Spreads()
+		if e != nil {
+			Error(ctx, e)
+			return
+		}
+		Success(ctx, spreads)
 	}
 }
 
-// UserSpreadShareGet 我的分享
+// UserSpreadShareGet 我的分享码
 func UserSpreadShareGet(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")

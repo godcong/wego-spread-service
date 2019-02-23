@@ -34,6 +34,7 @@ func Router(server *HTTPServer) *gin.Engine {
 	spread := eng.Group("spread")
 	spread.GET("authorize/:activity/:spread/*uri", controller.AuthorizeActivitySpreadNotify(version))
 	spread.GET("user/activity", controller.UserActivityList(version))
+	spread.GET("user/spread", controller.UserSpreadList(version))
 	spread.POST("user/activity/:code", controller.UserActivityJoin(version))
 	spread.GET("activity/:id/share", controller.UserActivityShareGet(version))
 	spread.GET("spread/:id/share", controller.UserSpreadShareGet(version))
