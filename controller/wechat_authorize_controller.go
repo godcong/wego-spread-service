@@ -4,13 +4,16 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-xorm/xorm"
 	"github.com/godcong/wego"
+	"github.com/godcong/wego-auth-manager/config"
 	"github.com/godcong/wego-auth-manager/model"
+	ut "github.com/godcong/wego-auth-manager/util"
 	"github.com/godcong/wego-spread-service/cache"
 	"github.com/godcong/wego/core"
 	"github.com/godcong/wego/util"
 	"github.com/google/uuid"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
+	"net/http"
 )
 
 // Authorize ...
@@ -47,7 +50,7 @@ func TokenHook(ctx *gin.Context, code *string) wego.TokenHook {
 // UserHook ...
 func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.UserHook {
 	return func(user *core.WechatUserInfo) []byte {
-		_, e := model.DB().Transaction(func(session *xorm.Session) (v interface{}, e error) {
+		token, e := model.DB().Transaction(func(session *xorm.Session) (v interface{}, e error) {
 			u := (*model.WechatUserInfo)(user)
 			if u == nil {
 				return nil, xerrors.New("null wechat user")
@@ -74,8 +77,19 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 			}
 			var user *model.User
 			if b {
-				log.Info("user nothing todo")
-				return nil, nil
+				user = &model.User{
+					WechatUserID: weuser.ID,
+				}
+				b, e = user.Get()
+				if e != nil || !b {
+					log.Error(e, b)
+					return nil, xerrors.New("user not found")
+				}
+				token, e := user.Login()
+				if e != nil {
+					return nil, e
+				}
+				return ut.ToToken(config.Config().WebToken.Key, token)
 			}
 			user = &model.User{
 				WechatUserID: weuser.ID,
@@ -123,11 +137,20 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 				log.Error("spread insert", i)
 				return nil, xerrors.New("spread insert error")
 			}
-			return nil, nil
+			token, e := user.Login()
+			if e != nil {
+				return nil, e
+			}
+			return ut.ToToken(config.Config().WebToken.Key, token)
 		})
 		if e != nil {
 			log.Error(e)
 		}
+
+		if v, b := token.(string); b {
+			ctx.Redirect(http.StatusFound, "/index.html?token="+v)
+		}
+
 		return nil
 	}
 }
