@@ -29,10 +29,10 @@ func Router(server *HTTPServer) *gin.Engine {
 	//	ctx.Status(http.StatusOK)
 	//	_, err = io.Copy(ctx.Writer, opened)
 	//})
-	eng.Use(middleware.AuthCheck(version))
+	eng.GET("authorize/:activity/*uri", controller.AuthorizeActivitySpreadNotify(version))
 
-	spread := eng.Group("spread")
-	spread.GET("authorize/:activity/:spread/*uri", controller.AuthorizeActivitySpreadNotify(version))
+	spread := eng.Group("spread", middleware.AuthCheck(version))
+
 	spread.GET("user/activity", controller.UserActivityList(version))
 	spread.GET("user/spread", controller.UserSpreadList(version))
 	spread.POST("user/activity/:code", controller.UserActivityJoin(version))

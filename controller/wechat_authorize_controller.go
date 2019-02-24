@@ -32,7 +32,7 @@ func AuthorizeActivitySpreadNotify(ver string) gin.HandlerFunc {
 		}
 		code := ctx.Query("user") //user spread code
 		account := wego.NewOfficialAccount(config.OfficialAccount)
-		account.HandleAuthorize(StateHook(code), TokenHook(&code), UserHook(code, account.AppID, 0)).ServeHTTP(ctx.Writer, ctx.Request)
+		account.HandleAuthorize(StateHook(code), TokenHook(&code), UserHook(&code, account.AppID, model.WechatTypeH5)).ServeHTTP(ctx.Writer, ctx.Request)
 	}
 }
 
@@ -45,56 +45,68 @@ func TokenHook(code *string) wego.TokenHook {
 }
 
 // UserHook ...
-func UserHook(code string, id string, t int) wego.UserHook {
+func UserHook(code *string, id string, wtype string) wego.UserHook {
 	return func(user *core.WechatUserInfo) []byte {
 		_, e := model.DB().Transaction(func(session *xorm.Session) (v interface{}, e error) {
-			weuser := model.UserFromHook(user, id, t)
+			u := (*model.WechatUserInfo)(user)
+			if u == nil {
+				return nil, xerrors.New("null wechat user")
+			}
 			defer func() {
 				if e != nil {
 					log.Error(e)
 					e = session.Rollback()
 				}
 			}()
-			if weuser == nil {
-				return nil, xerrors.New("null wechat user")
-			}
 
-			user := &model.User{
-				Model:    model.Model{},
-				UserType: model.UserTypeUser,
-				Nickname: weuser.Nickname,
-				//Sign:     util.CRC32(weuser.ID),
-				Token: "",
-				Salt:  util.GenerateRandomString(16),
+			var weuser model.WechatUser
+			var i int64
+			b, e := model.Where("open_id=?", u.OpenID).Get(&weuser)
+			model.UserFromHook(&weuser, u, id, wtype)
+			if e != nil || !b {
+				i, e = model.Insert(nil, &weuser)
+			} else {
+				i, e = model.Update(nil, weuser.ID, &weuser)
 			}
-			i, e := model.Insert(nil, user)
+			if e != nil || i == 0 {
+				log.Error("wechat user insert or update :", e, i)
+				return nil, xerrors.New("wechat user insert or update error")
+			}
+			var user *model.User
+			if b {
+				log.Info("user nothing todo")
+				return nil, nil
+			}
+			user = &model.User{
+				WechatUserID: weuser.ID,
+				UserType:     model.UserTypeUser,
+				Nickname:     weuser.Nickname,
+				Username:     "user_" + util.GenCRC32(weuser.ID),
+				Token:        "",
+				Salt:         util.GenerateRandomString(16),
+			}
+			i, e = model.Insert(session.Clone(), user)
 			if e != nil || i == 0 {
 				log.Error("user insert:", e, i)
 				return nil, xerrors.New("user insert error")
 			}
 
 			ua := &model.UserActivity{
-				SpreadCode: code,
+				SpreadCode: *code,
 			}
-			parent, e := ua.CodeSpread()
+			parent, e := ua.CodeSpread(nil)
 			if e != nil {
-				return nil, e
-			}
-			weuser.UserID = user.ID
-			i, e = model.Insert(nil, weuser)
-			if e != nil || i == 0 {
-				log.Error("wechat user insert:", e, i)
-				return nil, xerrors.New("wechat user insert error")
+				parent = model.NewSpread("")
 			}
 
 			ua.SpreadNumber++
-			i, e = model.Update(nil, ua.ID, ua)
+			i, e = model.Update(session.Clone(), ua.ID, ua)
 			if e != nil || i == 0 {
 				log.Error("user activity update:", e, i)
 				return nil, xerrors.New("user activity update error")
 			}
 			spread := &model.Spread{
-				Code:          code,
+				Code:          *code,
 				UserID:        user.ID,
 				ParentUserID1: parent.UserID,
 				ParentUserID2: parent.ParentUserID1,
@@ -106,7 +118,7 @@ func UserHook(code string, id string, t int) wego.UserHook {
 				ParentUserID8: parent.ParentUserID7,
 				ParentUserID9: parent.ParentUserID8,
 			}
-			i, e = model.Insert(nil, spread)
+			i, e = model.Insert(session.Clone(), spread)
 			if e != nil || i == 0 {
 				log.Error("spread insert", i)
 				return nil, xerrors.New("spread insert error")
