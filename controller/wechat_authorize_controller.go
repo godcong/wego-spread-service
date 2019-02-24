@@ -32,12 +32,12 @@ func AuthorizeActivitySpreadNotify(ver string) gin.HandlerFunc {
 		}
 		code := ctx.Query("user") //user spread code
 		account := wego.NewOfficialAccount(config.OfficialAccount)
-		account.HandleAuthorize(StateHook(code), TokenHook(&code), UserHook(&code, account.AppID, model.WechatTypeH5)).ServeHTTP(ctx.Writer, ctx.Request)
+		account.HandleAuthorize(StateHook(ctx, code), TokenHook(ctx, &code), UserHook(ctx, &code, account.AppID, model.WechatTypeH5)).ServeHTTP(ctx.Writer, ctx.Request)
 	}
 }
 
 // TokenHook ...
-func TokenHook(code *string) wego.TokenHook {
+func TokenHook(ctx *gin.Context, code *string) wego.TokenHook {
 	return func(token *core.Token, state string) []byte {
 		*code = cache.GetStateSign(state)
 		return nil
@@ -45,7 +45,7 @@ func TokenHook(code *string) wego.TokenHook {
 }
 
 // UserHook ...
-func UserHook(code *string, id string, wtype string) wego.UserHook {
+func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.UserHook {
 	return func(user *core.WechatUserInfo) []byte {
 		_, e := model.DB().Transaction(func(session *xorm.Session) (v interface{}, e error) {
 			u := (*model.WechatUserInfo)(user)
@@ -81,11 +81,11 @@ func UserHook(code *string, id string, wtype string) wego.UserHook {
 				WechatUserID: weuser.ID,
 				UserType:     model.UserTypeUser,
 				Nickname:     weuser.Nickname,
-				Username:     "user_" + util.GenCRC32(weuser.ID),
+				Username:     "USER_" + util.GenCRC32(weuser.ID),
 				Token:        "",
 				Salt:         util.GenerateRandomString(16),
 			}
-			i, e = model.Insert(session.Clone(), user)
+			i, e = model.Insert(session, user)
 			if e != nil || i == 0 {
 				log.Error("user insert:", e, i)
 				return nil, xerrors.New("user insert error")
@@ -100,7 +100,7 @@ func UserHook(code *string, id string, wtype string) wego.UserHook {
 			}
 
 			ua.SpreadNumber++
-			i, e = model.Update(session.Clone(), ua.ID, ua)
+			i, e = model.Update(session, ua.ID, ua)
 			if e != nil || i == 0 {
 				log.Error("user activity update:", e, i)
 				return nil, xerrors.New("user activity update error")
@@ -118,7 +118,7 @@ func UserHook(code *string, id string, wtype string) wego.UserHook {
 				ParentUserID8: parent.ParentUserID7,
 				ParentUserID9: parent.ParentUserID8,
 			}
-			i, e = model.Insert(session.Clone(), spread)
+			i, e = model.Insert(session, spread)
 			if e != nil || i == 0 {
 				log.Error("spread insert", i)
 				return nil, xerrors.New("spread insert error")
@@ -133,7 +133,7 @@ func UserHook(code *string, id string, wtype string) wego.UserHook {
 }
 
 // StateHook ...
-func StateHook(code string) wego.StateHook {
+func StateHook(ctx *gin.Context, code string) wego.StateHook {
 	return func() string {
 		key := util.GenMD5(uuid.New().String())
 		cache.SetStateSign(key, code)
