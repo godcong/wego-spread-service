@@ -14,6 +14,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 	"net/http"
+	"net/url"
 )
 
 // Authorize ...
@@ -41,7 +42,7 @@ func AuthorizeActivitySpreadNotify(ver string) gin.HandlerFunc {
 
 // TokenHook ...
 func TokenHook(ctx *gin.Context, code *string) wego.TokenHook {
-	return func(token *core.Token, state string) []byte {
+	return func(w http.ResponseWriter, req *http.Request, token *core.Token, state string) []byte {
 		*code = cache.GetStateSign(state)
 		return nil
 	}
@@ -49,7 +50,7 @@ func TokenHook(ctx *gin.Context, code *string) wego.TokenHook {
 
 // UserHook ...
 func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.UserHook {
-	return func(user *core.WechatUserInfo) []byte {
+	return func(w http.ResponseWriter, req *http.Request, user *core.WechatUserInfo) []byte {
 		token, e := model.DB().Transaction(func(session *xorm.Session) (v interface{}, e error) {
 			u := (*model.WechatUserInfo)(user)
 			if u == nil {
@@ -89,6 +90,11 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 				if e != nil {
 					return nil, e
 				}
+				i, e = user.Update("token")
+				if e != nil || i == 0 {
+					log.Error(e, i)
+					return nil, xerrors.New("login error")
+				}
 				return ut.ToToken(config.Config().WebToken.Key, token)
 			}
 			user = &model.User{
@@ -96,8 +102,12 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 				UserType:     model.UserTypeUser,
 				Nickname:     weuser.Nickname,
 				Username:     "USER_" + util.GenCRC32(weuser.ID),
-				Token:        "",
 				Salt:         util.GenerateRandomString(16),
+			}
+			//do login before insert
+			token, e := user.Login()
+			if e != nil {
+				return nil, e
 			}
 			i, e = model.Insert(session, user)
 			if e != nil || i == 0 {
@@ -132,14 +142,11 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 				ParentUserID8: parent.ParentUserID7,
 				ParentUserID9: parent.ParentUserID8,
 			}
+
 			i, e = model.Insert(session, spread)
 			if e != nil || i == 0 {
 				log.Error("spread insert", i)
 				return nil, xerrors.New("spread insert error")
-			}
-			token, e := user.Login()
-			if e != nil {
-				return nil, e
 			}
 			return ut.ToToken(config.Config().WebToken.Key, token)
 		})
@@ -148,7 +155,11 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 		}
 
 		if v, b := token.(string); b {
-			ctx.Redirect(http.StatusFound, "/index.html?token="+v)
+			log.Info("redirect")
+			v := url.Values{
+				"token": {v},
+			}
+			http.Redirect(w, req, "http://localhost/index.html?"+v.Encode(), http.StatusFound)
 		}
 
 		return nil
@@ -157,7 +168,7 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 
 // StateHook ...
 func StateHook(ctx *gin.Context, code string) wego.StateHook {
-	return func() string {
+	return func(w http.ResponseWriter, req *http.Request) string {
 		key := util.GenMD5(uuid.New().String())
 		cache.SetStateSign(key, code)
 		return key
