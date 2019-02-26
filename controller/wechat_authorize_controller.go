@@ -132,7 +132,7 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 			spread := &model.Spread{
 				Code:          *code,
 				UserID:        user.ID,
-				ParentUserID1: parent.UserID,
+				ParentUserID1: ua.UserID,
 				ParentUserID2: parent.ParentUserID1,
 				ParentUserID3: parent.ParentUserID2,
 				ParentUserID4: parent.ParentUserID3,
