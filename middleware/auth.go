@@ -4,7 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-auth-manager/config"
 	"github.com/godcong/wego-auth-manager/model"
-	"github.com/godcong/wego-spread-service/util"
+	"github.com/godcong/wego-auth-manager/util"
+
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
 	"strings"
