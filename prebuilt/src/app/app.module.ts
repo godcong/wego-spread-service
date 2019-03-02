@@ -5,15 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
-import {MatIconModule, MatTabsModule} from '@angular/material';
+import {MatGridListModule, MatIconModule, MatTabsModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { QrcodeComponent } from './qrcode/qrcode.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    QrcodeComponent
+    QrcodeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +24,7 @@ import { QrcodeComponent } from './qrcode/qrcode.component';
     FlexLayoutModule,
     MatIconModule,
     MatTabsModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
