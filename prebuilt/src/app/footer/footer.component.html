@@ -1,17 +1,23 @@
 <footer>
-    <mat-tab-group headerPosition="below" mat="center">
-      <mat-tab label="主页">
-        <h1>Some tab content</h1>
-        <p>...</p>
-      </mat-tab>
-      <mat-tab label="收藏">
-        <h1 >Some more tab content</h1>
-        <p>...</p>
-      </mat-tab>
-      <mat-tab label="我的">
-        <h1>Some more tab content</h1>
-        <p>...</p>
-      </mat-tab>
-    </mat-tab-group>
+  <mat-tab-group headerPosition="below" mat-align-tabs="center">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>home</mat-icon>
+        主页
+      </ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>favorite_border</mat-icon>
+        收藏
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="我的">
+      <ng-template mat-tab-label>
+        <mat-icon>settings</mat-icon>
+        我的
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
 </footer>
 

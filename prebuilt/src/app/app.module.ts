@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
-import {MatTabsModule} from '@angular/material';
+import {MatIconModule, MatTabsModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
@@ -18,6 +18,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     AppRoutingModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    MatIconModule,
     MatTabsModule,
   ],
   providers: [],
