@@ -1,19 +1,8 @@
-<mat-grid-list cols="1">
-<mat-list role="list">
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card1</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card2</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card3</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card1</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card2</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card3</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card1</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card2</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card3</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card1</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card2</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card3</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card1</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card2</mat-card></mat-list-item>
-  <mat-list-item role="listitem"><mat-card fxFill>Simple card3</mat-card></mat-list-item>
-</mat-list>
+<mat-grid-list cols="1" rowHeight="100%">
+
+  <mat-list >
+    <mat-list-item  *ngFor="let link of links">
+      <mat-card fxFill>Simple card{{link}}</mat-card>
+    </mat-list-item>
+  </mat-list>
 </mat-grid-list>

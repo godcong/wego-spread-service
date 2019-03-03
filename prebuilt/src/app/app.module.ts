@@ -8,6 +8,7 @@ import {MatCardModule, MatGridListModule, MatIconModule, MatListModule, MatTabsM
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { QrcodeComponent } from './qrcode/qrcode.component';
 import { HomeComponent } from './home/home.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { HomeComponent } from './home/home.component';
     HomeComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
