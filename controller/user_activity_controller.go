@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/godcong/wego"
 	"github.com/godcong/wego-auth-manager/model"
 	"github.com/godcong/wego/util"
 	log "github.com/sirupsen/logrus"
@@ -20,6 +21,29 @@ func UserActivityList(ver string) gin.HandlerFunc {
 			return
 		}
 		Success(ctx, page)
+	}
+}
+
+// UserActivityShareGet 活动分享
+func UserActivityShareGet(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		user := model.GetUser(ctx)
+		act := model.NewActivity(id)
+		act.UserID = user.ID
+
+		p, e := act.Property()
+		if e != nil {
+			Error(ctx, e)
+			return
+		}
+		jssdk := wego.NewJSSDK(p.Config().JSSDK)
+		config := jssdk.BuildConfig("")
+		if config == nil {
+			Error(ctx, xerrors.New("null config result"))
+			return
+		}
+		Success(ctx, config)
 	}
 }
 
