@@ -51,8 +51,7 @@ func UserLogin(ver string) gin.HandlerFunc {
 			Error(ctx, xerrors.New("username password is not correct"))
 			return
 		}
-		token := util.NewWebToken(user.ID)
-		token.Username = user.Username
+		token := util.NewWebToken(user.ID, user.Username)
 		token.Nickname = user.Nickname
 		t, e := util.ToToken(config.Config().WebToken.Key, token)
 		if e != nil {

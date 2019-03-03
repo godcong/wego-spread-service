@@ -6,12 +6,14 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class HomeDataService {
+  private client: HttpClient;
 
   constructor(client: HttpClient) {
+    this.client = client;
   }
 
   getActivityList() {
-    this.client.
+    this.client.get('http://localhost:8081');
   }
 
 }
