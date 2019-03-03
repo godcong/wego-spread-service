@@ -10,6 +10,7 @@ import { QrcodeComponent } from './qrcode/qrcode.component';
 import { HomeComponent } from './home/home.component';
 import {CommonModule} from '@angular/common';
 import { MyComponent } from './my/my.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MyComponent } from './my/my.component';
   imports: [
     CommonModule,
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FlexLayoutModule,

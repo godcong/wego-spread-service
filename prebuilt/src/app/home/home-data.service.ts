@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -13,7 +12,11 @@ export class HomeDataService {
   }
 
   getActivityList() {
-    this.client.get('http://localhost:8081');
+    this.client.get('http://localhost:8081/spread/activity').subscribe((v: any) => {
+      console.log(v);
+      return;
+    });
+    return [];
   }
 
 }

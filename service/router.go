@@ -4,6 +4,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-spread-service/controller"
 	"github.com/godcong/wego-spread-service/middleware"
+	"github.com/rakyll/statik/fs"
+	"io"
+	"log"
+	"net/http"
 )
 
 // Router ...
@@ -12,25 +16,24 @@ func Router(server *HTTPServer) *gin.Engine {
 	eng := server.Engine
 
 	//TODO
-	//staticFS, err := fs.New()
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
+	staticFS, err := fs.New()
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	//eng.NoRoute(func(ctx *gin.Context) {
-	//	opened, err := staticFS.Open(ctx.Request.URL.Path)
-	//	if ctx.Request.URL.Path == "/" || err != nil {
-	//		opened, err = staticFS.Open("/index.html")
-	//		if err != nil {
-	//			ctx.AbortWithStatus(http.StatusNotFound)
-	//			return
-	//		}
-	//	}
-	//	ctx.Status(http.StatusOK)
-	//	_, err = io.Copy(ctx.Writer, opened)
-	//})
 	eng.GET("authorize/:activity/*uri", controller.AuthorizeActivitySpreadNotify(version))
-
+	eng.NoRoute(func(ctx *gin.Context) {
+		opened, err := staticFS.Open(ctx.Request.URL.Path)
+		if ctx.Request.URL.Path == "/" || err != nil {
+			opened, err = staticFS.Open("/index.html")
+			if err != nil {
+				ctx.AbortWithStatus(http.StatusNotFound)
+				return
+			}
+		}
+		ctx.Status(http.StatusOK)
+		_, err = io.Copy(ctx.Writer, opened)
+	})
 	spread := eng.Group("spread", middleware.AuthCheck(version))
 
 	spread.GET("activity", controller.ActivityList(version))

@@ -10,6 +10,7 @@ import (
 	"github.com/godcong/wego-auth-manager/model"
 	"github.com/godcong/wego-spread-service/cache"
 	"github.com/godcong/wego-spread-service/service"
+	_ "github.com/godcong/wego-spread-service/statik"
 	"os"
 	"os/signal"
 	"syscall"

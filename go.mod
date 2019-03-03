@@ -10,8 +10,7 @@ require (
 	github.com/godcong/wego v0.0.0-20190224170130-6199037b08b0
 	github.com/godcong/wego-auth-manager v0.0.0-20190303161420-819f5bb60cf5
 	github.com/google/uuid v1.1.0
-	github.com/json-iterator/go v1.1.5
+	github.com/rakyll/statik v0.1.5
 	github.com/sirupsen/logrus v1.3.0
 	golang.org/x/xerrors v0.0.0-20190212162355-a5947ffaace3
-	gopkg.in/square/go-jose.v2 v2.2.2
 )
