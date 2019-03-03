@@ -8,7 +8,6 @@ import {Router} from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'prebuilt';
 
   constructor(
     private router: Router
@@ -18,9 +17,9 @@ export class AppComponent {
   onTabClick($event: MatTabChangeEvent) {
     console.log($event);
     if ($event.index === 0) {
-      return this.router.navigateByUrl('/code');
-    }else {
-      return this.router.navigateByUrl('/home');
+      // this.router.navigateByUrl('/code');
+    } else {
+      // this.router.navigateByUrl('/home');
     }
   }
 }
