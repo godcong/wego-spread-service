@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {MatTabChangeEvent} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'prebuilt';
+
+  constructor(
+    private router: Router
+  ) {
+  }
+
+  onTabClick($event: MatTabChangeEvent) {
+    console.log($event);
+    if ($event.index === 0) {
+      return this.router.navigateByUrl('/code');
+    }else {
+      return this.router.navigateByUrl('/home');
+    }
+  }
 }
