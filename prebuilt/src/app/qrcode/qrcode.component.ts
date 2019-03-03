@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./qrcode.component.scss']
 })
 export class QrcodeComponent implements OnInit {
+  $i100: number;
 
   constructor() { }
 
