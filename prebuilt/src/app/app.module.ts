@@ -11,13 +11,15 @@ import { HomeComponent } from './home/home.component';
 import {CommonModule} from '@angular/common';
 import { MyComponent } from './my/my.component';
 import {HttpClientModule} from '@angular/common/http';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QrcodeComponent,
     HomeComponent,
-    MyComponent
+    MyComponent,
+    FavoriteComponent
   ],
   imports: [
     CommonModule,
