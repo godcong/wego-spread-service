@@ -36,7 +36,7 @@ func Router(server *HTTPServer) *gin.Engine {
 	})
 
 	eng.GET("/spread/activity", controller.ActivityList(version))
-	spread := eng.Group("spread", middleware.AuthCheck(version))
+	spread := eng.Group("spread", middleware.AuthCheck(version), middleware.UseCrossOrigin(version))
 
 	spread.GET("user/activity", controller.UserActivityList(version))
 	spread.GET("user/spread", controller.UserSpreadList(version))
