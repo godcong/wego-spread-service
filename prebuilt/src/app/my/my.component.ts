@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+declare var window: Window;
 
 @Component({
   selector: 'app-my',
@@ -6,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my.component.scss']
 })
 export class MyComponent implements OnInit {
+  private height: number;
 
-  constructor() { }
+  constructor() {
+    this.height = window.innerHeight;
+
+  }
 
   ngOnInit() {
   }
