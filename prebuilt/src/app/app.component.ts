@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatTabChangeEvent} from '@angular/material';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +8,12 @@ import {Router} from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  private router: ActivatedRoute;
 
-  constructor(
-    private router: Router
-  ) {
+  constructor(router: ActivatedRoute) {
+    console.log('appInit');
+    this.router = router;
+
   }
 
   onTabClick($event: MatTabChangeEvent) {
@@ -22,4 +24,14 @@ export class AppComponent {
       // this.router.navigateByUrl('/home');
     }
   }
+
+
+  getURL() {
+    this.router.queryParamMap.subscribe(val => {
+      // if ((val !== null) || (val['token'] !== null)) {
+      // }
+      console.log(val);
+    });
+  }
+
 }
