@@ -12,7 +12,8 @@ export class HomeDataService {
   }
 
   getActivityList() {
-    return this.client.get('http://localhost:8081/spread/activity');
+    return this.client.get('http://localhost:8081/spread/activity'
+    );
   }
 
 }
