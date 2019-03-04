@@ -1,8 +1,10 @@
-
 <mat-grid-list cols="1" rowHeight="100%">
   <mat-list>
-    <mat-list-item  *ngFor="let link of activities">
-      <mat-card fxFill>Simple card{{link}}</mat-card>
+    <mat-list-item *ngFor="let link of activities">
+      <mat-card fxFill>
+        <mat-card-title>{{link.name}}</mat-card-title>
+        <mat-card-subtitle>{{link.code}}</mat-card-subtitle>
+      </mat-card>
     </mat-list-item>
   </mat-list>
 </mat-grid-list>
