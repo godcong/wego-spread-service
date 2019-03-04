@@ -12,11 +12,7 @@ export class HomeDataService {
   }
 
   getActivityList() {
-    this.client.get('http://localhost:8081/spread/activity').subscribe((v: any) => {
-      console.log(v);
-      return;
-    });
-    return [];
+    return this.client.get('http://localhost:8081/spread/activity');
   }
 
 }

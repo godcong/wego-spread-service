@@ -18,7 +18,11 @@ export class HomeComponent implements OnInit, OnChanges {
     this.data = data;
     console.log('constructor');
     this.height = window.innerHeight;
-    this.activities = this.data.getActivityList();
+    this.data.getActivityList().subscribe((ret: any) => {
+      this.activities = ret;
+    }, error => {
+      console.log(error);
+    });
   }
 
   ngOnInit() {
