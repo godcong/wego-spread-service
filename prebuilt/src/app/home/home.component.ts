@@ -8,13 +8,16 @@ import {HomeDataService} from './home-data.service';
 })
 export class HomeComponent implements OnInit {
   private links: string[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9'];
-  public data: HomeDataService;
+  private data: HomeDataService;
+  public activities: any;
 
   constructor(data: HomeDataService) {
     this.data = data;
   }
 
   ngOnInit() {
+    this.activities = this.data.getActivityList();
   }
+
 
 }
