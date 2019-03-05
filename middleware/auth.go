@@ -27,6 +27,7 @@ func AuthCheck(ver string) gin.HandlerFunc {
 			err = xerrors.New("token is null")
 			return
 		}
+		log.Info("token:", token)
 		t, err := util.FromToken(config.Config().WebToken.Key, token)
 		if err != nil {
 			return
@@ -55,6 +56,7 @@ func AuthCheck(ver string) gin.HandlerFunc {
 
 // CheckToken ...
 func CheckToken(src, token string) bool {
+	log.Info("compare:", src, token)
 	lt := strings.Split(token, ".")
 	size := len(lt)
 	if size == 0 {

@@ -35,9 +35,10 @@ func Router(server *HTTPServer) *gin.Engine {
 		_, err = io.Copy(ctx.Writer, opened)
 	})
 	eng.Use(middleware.UseCrossOrigin(version))
-	eng.GET("/spread/activity", controller.ActivityList(version))
+
 	spread := eng.Group("spread", middleware.AuthCheck(version))
 
+	spread.GET("activity", controller.ActivityList(version))
 	spread.GET("user/activity", controller.UserActivityList(version))
 	spread.GET("user/spread", controller.UserSpreadList(version))
 	spread.POST("user/activity/:code", controller.UserActivityJoin(version))
