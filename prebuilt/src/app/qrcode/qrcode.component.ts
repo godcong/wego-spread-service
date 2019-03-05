@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SizeService} from '../size.service';
 
 @Component({
   selector: 'app-qrcode',
@@ -6,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./qrcode.component.scss']
 })
 export class QrcodeComponent implements OnInit {
-  $i100: number;
+  size: SizeService;
 
-  constructor() { }
+  constructor(size: SizeService) {
+    this.size = size;
+  }
 
   ngOnInit() {
   }

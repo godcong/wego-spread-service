@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 
-declare var window: Window;
-
 @Injectable({
   providedIn: 'root'
 })

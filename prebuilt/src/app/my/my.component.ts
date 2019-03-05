@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
-declare var window: Window;
+import {SizeService} from '../size.service';
 
 @Component({
   selector: 'app-my',
@@ -8,10 +7,10 @@ declare var window: Window;
   styleUrls: ['./my.component.scss']
 })
 export class MyComponent implements OnInit {
-  private height: number;
+  size: SizeService;
 
-  constructor() {
-    this.height = window.innerHeight;
+  constructor(size: SizeService) {
+    this.size = size;
 
   }
 
