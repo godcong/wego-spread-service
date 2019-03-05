@@ -1,9 +1,9 @@
-import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {HomeDataService} from './home-data.service';
-import {ActivatedRoute, ParamMap, Params} from '@angular/router';
-import {HttpParams} from '@angular/common/http';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 import {WebTokenService} from '../web-token.service';
 import {SizeService} from '../size.service';
+import {DataService} from '../data.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, OnChanges {
   public activities: any;
   private router: ActivatedRoute;
 
-  constructor(data: HomeDataService, router: ActivatedRoute, size: SizeService) {
+  constructor(data: DataService, router: ActivatedRoute, size: SizeService) {
     this.data = data;
     this.router = router;
     this.size = size;

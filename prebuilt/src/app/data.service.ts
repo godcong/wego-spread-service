@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HomeDataService {
+export class DataService {
   private client: HttpClient;
 
   constructor(client: HttpClient) {
@@ -15,5 +15,4 @@ export class HomeDataService {
     return this.client.get('http://localhost:8081/spread/activity'
     );
   }
-
 }
