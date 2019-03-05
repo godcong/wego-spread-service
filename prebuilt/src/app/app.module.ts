@@ -1,17 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCardModule, MatGridListModule, MatIconModule, MatListModule, MatTabsModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { QrcodeComponent } from './qrcode/qrcode.component';
-import { HomeComponent } from './home/home.component';
+import {QrcodeComponent} from './qrcode/qrcode.component';
+import {HomeComponent} from './home/home.component';
 import {CommonModule} from '@angular/common';
-import { MyComponent } from './my/my.component';
+import {MyComponent} from './my/my.component';
 import {HttpClientModule} from '@angular/common/http';
-import { FavoriteComponent } from './favorite/favorite.component';
+import {FavoriteComponent} from './favorite/favorite.component';
 
 @NgModule({
   declarations: [
@@ -37,4 +37,5 @@ import { FavoriteComponent } from './favorite/favorite.component';
   providers: [Window],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

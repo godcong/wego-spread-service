@@ -1,37 +1,31 @@
 import {Component, OnInit} from '@angular/core';
 import {MatTabChangeEvent} from '@angular/material';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Event, NavigationEnd, NavigationError, NavigationStart, Router, RoutesRecognized} from '@angular/router';
+import {Location} from '@angular/common';
+import {HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  private router: ActivatedRoute;
-
-  constructor(router: ActivatedRoute) {
+export class AppComponent implements OnInit {
+  constructor() {
     console.log('appInit');
-    this.router = router;
-
   }
 
   onTabClick($event: MatTabChangeEvent) {
     console.log($event);
     if ($event.index === 0) {
-      // this.router.navigateByUrl('/code');
+
     } else {
-      // this.router.navigateByUrl('/home');
+
     }
   }
 
 
-  getURL() {
-    this.router.queryParamMap.subscribe(val => {
-      // if ((val !== null) || (val['token'] !== null)) {
-      // }
-      console.log(val);
-    });
+  ngOnInit(): void {
+    console.log('ngOnInit');
   }
 
 }

@@ -1,5 +1,8 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {HomeDataService} from './home-data.service';
+import {ActivatedRoute, ParamMap, Params} from '@angular/router';
+import {HttpParams} from '@angular/common/http';
+import {WebTokenService} from '../web-token.service';
 
 declare var window: Window;
 
@@ -13,9 +16,11 @@ export class HomeComponent implements OnInit, OnChanges {
   private data: HomeDataService;
   public activities: any;
   public height: number;
+  private router: ActivatedRoute;
 
-  constructor(data: HomeDataService) {
+  constructor(data: HomeDataService, router: ActivatedRoute) {
     this.data = data;
+    this.router = router;
     console.log('constructor');
     this.height = window.innerHeight;
     this.data.getActivityList().subscribe((ret: any) => {
@@ -27,14 +32,14 @@ export class HomeComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     console.log('ngOnInit');
-    // this.height = window.innerHeight;
-    // console.log(window.innerWidth);
-    // this.activities = this.data.getActivityList();
+    this.router.queryParamMap.subscribe((params: ParamMap) => {
+      if (params.has('token')) {
+        WebTokenService.setToken(params.get('token'));
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('ngOnChanges');
-    // this.activities = this.data.getActivityList();
   }
-
 }

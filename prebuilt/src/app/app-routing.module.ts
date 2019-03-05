@@ -1,14 +1,13 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule, ExtraOptions} from '@angular/router';
-import {QrcodeComponent} from './qrcode/qrcode.component';
 import {HomeComponent} from './home/home.component';
 
 const routes: Routes = [
   {
-    path: 'code', component: QrcodeComponent,
+    path: 'home', component: HomeComponent,
   },
   {
-    path: 'home', component: HomeComponent,
+    path: '', redirectTo: '/home', pathMatch: 'full'
   },
 ];
 
