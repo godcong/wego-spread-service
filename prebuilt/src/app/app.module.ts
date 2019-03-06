@@ -13,6 +13,7 @@ import {MyComponent} from './my/my.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FavoriteComponent} from './favorite/favorite.component';
 import {QRCodeModule} from 'angularx-qrcode';
+import {ClipboardModule} from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {QRCodeModule} from 'angularx-qrcode';
     MatListModule,
     MatFormFieldModule,
     QRCodeModule,
+    ClipboardModule,
   ],
   providers: [Window],
   bootstrap: [AppComponent]

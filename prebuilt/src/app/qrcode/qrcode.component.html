@@ -5,10 +5,11 @@
 
   <mat-card>
     <mat-card-content class="share-content">
-      <input matInput placeholder="Favorite food" value="https://" fxFill>
+      <input matInput placeholder="Favorite food" value="https://" fxFill disabled>
     </mat-card-content>
     <mat-card-actions align="end">
-      <button color="warn">Click me!</button>
+      <button mat-button color="warn">复制</button>
+      <!--<button class="btn btn-default" type="button" ngxClipboard [cbContent]="text" (cbOnSuccess)="successFun()">copy</button>-->
     </mat-card-actions>
   </mat-card>
 
