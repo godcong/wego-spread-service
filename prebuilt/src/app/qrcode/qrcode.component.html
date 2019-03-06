@@ -1,10 +1,23 @@
 <mat-grid-list cols="1" rowHeight='{{size.height }}'>
   <mat-card>
-    <mat-card-content></mat-card-content>
+    <mat-card-title>分享码</mat-card-title>
   </mat-card>
+
   <mat-card>
-    <mat-card-title>{{activity.name}}</mat-card-title>
-    <mat-card-subtitle>{{activity.code}}</mat-card-subtitle>
+    <mat-card-content class="share-content">
+      <input matInput placeholder="Favorite food" value="https://" fxFill>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button color="warn">Click me!</button>
+    </mat-card-actions>
   </mat-card>
-  </mat-grid-list>
+
+  <mat-card>
+    <mat-card-content>
+      <qrcode [qrdata]="qrcode" [size]="256" [level]="'M'"></qrcode>
+    </mat-card-content>
+
+
+  </mat-card>
+</mat-grid-list>
 

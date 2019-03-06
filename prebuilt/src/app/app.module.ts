@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatCardModule, MatGridListModule, MatIconModule, MatListModule, MatTabsModule} from '@angular/material';
+import {MatCardModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatListModule, MatTabsModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {QrcodeComponent} from './qrcode/qrcode.component';
 import {HomeComponent} from './home/home.component';
@@ -12,6 +12,7 @@ import {CommonModule} from '@angular/common';
 import {MyComponent} from './my/my.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FavoriteComponent} from './favorite/favorite.component';
+import {QRCodeModule} from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,8 @@ import {FavoriteComponent} from './favorite/favorite.component';
     MatGridListModule,
     MatCardModule,
     MatListModule,
+    MatFormFieldModule,
+    QRCodeModule,
   ],
   providers: [Window],
   bootstrap: [AppComponent]

@@ -8,9 +8,11 @@ import {SizeService} from '../size.service';
 })
 export class QrcodeComponent implements OnInit {
   size: SizeService;
+  qrcode: string;
 
   constructor(size: SizeService) {
     this.size = size;
+    this.qrcode = 'http://localhost:8080';
   }
 
   ngOnInit() {

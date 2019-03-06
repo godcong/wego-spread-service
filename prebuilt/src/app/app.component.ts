@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {MatTabChangeEvent} from '@angular/material';
-import {ActivatedRoute, Event, NavigationEnd, NavigationError, NavigationStart, Router, RoutesRecognized} from '@angular/router';
-import {Location} from '@angular/common';
-import {HttpParams} from '@angular/common/http';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {WebTokenService} from './web-token.service';
 
 @Component({
   selector: 'app-root',
@@ -10,22 +8,17 @@ import {HttpParams} from '@angular/common/http';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor() {
+  private router: ActivatedRoute;
+
+  constructor(router: ActivatedRoute) {
+    this.router = router;
     console.log('appInit');
   }
 
-  onTabClick($event: MatTabChangeEvent) {
-    console.log($event);
-    if ($event.index === 0) {
-
-    } else {
-
-    }
-  }
-
-
   ngOnInit(): void {
-    console.log('ngOnInit');
+    this.router.queryParamMap.subscribe((params: ParamMap) => {
+      console.log(params);
+    });
   }
 
 }
