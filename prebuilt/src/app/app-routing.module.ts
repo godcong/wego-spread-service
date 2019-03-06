@@ -3,6 +3,7 @@ import {Routes, RouterModule, ExtraOptions} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {MyComponent} from './my/my.component';
 import {FavoriteComponent} from './favorite/favorite.component';
+import {QrcodeComponent} from './qrcode/qrcode.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,9 @@ const routes: Routes = [
   },
   {
     path: 'favorite', component: FavoriteComponent,
+  },
+  {
+    path: 'qrcode', component: QrcodeComponent,
   },
   {
     path: '', redirectTo: '/home', pathMatch: 'full'

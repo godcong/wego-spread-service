@@ -1,16 +1,10 @@
-<mat-grid-list cols="1" rowHeight='{{size.height}}'>
-  <mat-list>
-    <mat-list-item>
-      <mat-card fxFill>
-        <mat-card-title>活动列表</mat-card-title>
-      </mat-card>
-    </mat-list-item>
-    <mat-list-item *ngFor="let activity of activities">
-      <mat-card fxFill>
-        <mat-card-title>{{activity.name}}</mat-card-title>
-        <mat-card-subtitle>{{activity.code}}</mat-card-subtitle>
-      </mat-card>
-    </mat-list-item>
-  </mat-list>
-</mat-grid-list>
+<mat-grid-list cols="1" rowHeight='{{size.height }}'>
+  <mat-card>
+    <mat-card-content></mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>{{activity.name}}</mat-card-title>
+    <mat-card-subtitle>{{activity.code}}</mat-card-subtitle>
+  </mat-card>
+  </mat-grid-list>
 
