@@ -157,7 +157,7 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 			v := url.Values{
 				"token": {v},
 			}
-			ctx.Redirect(http.StatusFound, "http://localhost:8081/index.html?"+v.Encode())
+			ctx.Redirect(http.StatusFound, "http://localhost:8081/home?"+v.Encode())
 			ctx.AbortWithStatus(http.StatusFound)
 		}
 
