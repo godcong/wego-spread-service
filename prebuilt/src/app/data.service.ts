@@ -21,4 +21,15 @@ export class DataService {
       }
     );
   }
+
+  getUserActivityList() {
+    return this.client.get('http://localhost:8081/spread/user/activity', {
+        headers: {
+          'Content-Type': 'application/json',
+          token: WebTokenService.getToken(),
+        }
+      }
+    );
+  }
+
 }

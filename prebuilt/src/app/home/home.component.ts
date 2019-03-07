@@ -21,11 +21,6 @@ export class HomeComponent implements OnInit, OnChanges {
     this.router = router;
     this.size = size;
     console.log('constructor');
-    this.data.getActivityList().subscribe((ret: any) => {
-      this.activities = ret;
-    }, error => {
-      console.log(error);
-    });
   }
 
   ngOnInit() {
@@ -34,6 +29,11 @@ export class HomeComponent implements OnInit, OnChanges {
       if (params.has('token')) {
         WebTokenService.setToken(params.get('token'));
       }
+    });
+    this.data.getActivityList().subscribe((ret: any) => {
+      this.activities = ret;
+    }, error => {
+      console.log(error);
     });
   }
 

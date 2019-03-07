@@ -14,6 +14,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FavoriteComponent} from './favorite/favorite.component';
 import {QRCodeModule} from 'angularx-qrcode';
 import {ClipboardModule} from 'ngx-clipboard';
+import { ActivityComponent } from './activity/activity.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {ClipboardModule} from 'ngx-clipboard';
     QrcodeComponent,
     HomeComponent,
     MyComponent,
-    FavoriteComponent
+    FavoriteComponent,
+    ActivityComponent
   ],
   imports: [
     CommonModule,
