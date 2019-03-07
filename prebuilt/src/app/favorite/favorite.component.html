@@ -1,8 +1,8 @@
 <mat-grid-list cols="1" rowHeight='{{size.height}}'>
-  <mat-card fxFill>
+  <mat-card >
     <mat-card-title>收藏列表</mat-card-title>
   </mat-card>
-  <mat-card routerLink="/activity" *ngFor="let activity of userActivities" fxFill>
+  <mat-card routerLink="/qrcode" *ngFor="let activity of userActivities" >
     <mat-card-subtitle>{{activity.Activity.name}}</mat-card-subtitle>
     <mat-card-content>{{activity.Activity.comment}}</mat-card-content>
   </mat-card>

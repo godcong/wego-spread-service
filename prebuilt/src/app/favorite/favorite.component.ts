@@ -8,7 +8,6 @@ import {SizeService} from '../size.service';
   styleUrls: ['./favorite.component.scss']
 })
 export class FavoriteComponent implements OnInit {
-  private height: number;
   private data: DataService;
   private userActivities: any;
   private size: SizeService;
@@ -16,7 +15,6 @@ export class FavoriteComponent implements OnInit {
   constructor(data: DataService, size: SizeService) {
     this.data = data;
     this.size = size;
-    this.height = window.innerHeight;
   }
 
   ngOnInit() {
