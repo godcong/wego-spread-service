@@ -4,49 +4,45 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-spread-service/controller"
 	"github.com/godcong/wego-spread-service/middleware"
-	"github.com/rakyll/statik/fs"
-	"io"
-	"log"
-	"net/http"
 )
 
 // Router ...
 func Router(server *HTTPServer) *gin.Engine {
 	version := "v0"
 	eng := server.Engine
-
+	eng.Use(middleware.UseCrossOrigin(version))
 	//TODO
-	staticFS, err := fs.New()
-	if err != nil {
-		log.Fatal(err)
-	}
+	//staticFS, err := fs.New()
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
 
 	eng.GET("authorize/:activity/*uri", controller.AuthorizeActivitySpreadNotify(version))
-	eng.NoRoute(func(ctx *gin.Context) {
-		opened, err := staticFS.Open(ctx.Request.URL.Path)
-		if ctx.Request.URL.Path == "/" || err != nil {
-			opened, err = staticFS.Open("/index.html")
-			if err != nil {
-				ctx.AbortWithStatus(http.StatusNotFound)
-				return
-			}
-		}
-		ctx.Status(http.StatusOK)
-		_, err = io.Copy(ctx.Writer, opened)
-	})
-	eng.Use(middleware.UseCrossOrigin(version))
+	//eng.NoRoute(func(ctx *gin.Context) {
+	//opened, err := staticFS.Open(ctx.Request.URL.Path)
+	//if ctx.Request.URL.Path == "/" || err != nil {
+	//	opened, err = staticFS.Open("/index.html")
+	//	if err != nil {
+	//		ctx.AbortWithStatus(http.StatusNotFound)
+	//		return
+	//	}
+	//}
+	//ctx.Status(http.StatusOK)
+	//_, err = io.Copy(ctx.Writer, opened)
+	//})
+	//eng.Static("web", "./dist")
 
 	spreadN := eng.Group("spread")
 	spreadN.GET("activity/:id", controller.ActivityShow(version))
 
-	spread := eng.Group("spread", middleware.AuthCheck(version))
+	spreadA := eng.Group("spread", middleware.AuthCheck(version))
 
-	spread.GET("activity", controller.ActivityList(version))
-	spread.GET("user/activity", controller.UserActivityList(version))
-	spread.GET("user/spread", controller.UserSpreadList(version))
-	spread.POST("user/activity/:code", controller.UserActivityJoin(version))
-	spread.GET("activity/:id/share", controller.UserActivityShareGet(version))
-	spread.GET("spread/:id/share", controller.UserSpreadShareGet(version))
+	spreadA.GET("activity", controller.ActivityList(version))
+	spreadA.GET("user/activity", controller.UserActivityList(version))
+	spreadA.GET("user/spread", controller.UserSpreadList(version))
+	spreadA.POST("user/activity/:code", controller.UserActivityJoin(version))
+	spreadA.GET("activity/:id/share", controller.UserActivityShareGet(version))
+	spreadA.GET("spread/:id/share", controller.UserSpreadShareGet(version))
 
 	////登录
 	//g0.POST("login", LoginPOST(verV0))
