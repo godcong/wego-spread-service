@@ -5,8 +5,13 @@ import {MyComponent} from './my/my.component';
 import {FavoriteComponent} from './favorite/favorite.component';
 import {QrcodeComponent} from './qrcode/qrcode.component';
 import {ActivityComponent} from './activity/activity.component';
+import {AppComponent} from './app.component';
 
 const routes: Routes = [
+  // {
+  // path: '',
+  // component: AppComponent,
+  // children: [
   {
     path: 'home', component: HomeComponent,
   },
@@ -24,7 +29,9 @@ const routes: Routes = [
   },
   {
     path: '', redirectTo: '/home', pathMatch: 'full'
-  },
+  }
+  // ],
+  // },
 ];
 
 const config: ExtraOptions = {

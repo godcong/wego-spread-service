@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {WebTokenService} from './web-token.service';
+
 interface UserActivity {
   PropertyID: string;
   ActivityID: string;
@@ -10,6 +11,7 @@ interface UserActivity {
   IsPass: boolean;
   SpreadNumber: number;
 }
+
 interface UserActivityInterface {
   Current: number;
   Desc: boolean;
@@ -30,13 +32,15 @@ export class DataService {
   }
 
   getActivityList() {
+
     return this.client.get('http://localhost:8081/spread/activity', {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),
         }
       }
-    );
+    )
+      ;
   }
 
   getUserActivityList() {

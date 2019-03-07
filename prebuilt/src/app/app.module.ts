@@ -10,11 +10,11 @@ import {QrcodeComponent} from './qrcode/qrcode.component';
 import {HomeComponent} from './home/home.component';
 import {CommonModule} from '@angular/common';
 import {MyComponent} from './my/my.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HttpHeaders} from '@angular/common/http';
 import {FavoriteComponent} from './favorite/favorite.component';
 import {QRCodeModule} from 'angularx-qrcode';
 import {ClipboardModule} from 'ngx-clipboard';
-import { ActivityComponent } from './activity/activity.component';
+import {ActivityComponent} from './activity/activity.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import { ActivityComponent } from './activity/activity.component';
     MatFormFieldModule,
     QRCodeModule,
     ClipboardModule,
+
   ],
   providers: [Window],
   bootstrap: [AppComponent]
