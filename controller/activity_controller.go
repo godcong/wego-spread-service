@@ -19,3 +19,17 @@ func ActivityList(ver string) gin.HandlerFunc {
 		Success(ctx, acts)
 	}
 }
+
+// ActivityShow 活动详情
+func ActivityShow(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		activity := model.NewActivity(id)
+		_, err := model.Get(nil, activity)
+		if err != nil {
+			Error(ctx, err)
+			return
+		}
+		Success(ctx, activity)
+	}
+}
