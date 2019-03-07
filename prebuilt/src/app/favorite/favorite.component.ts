@@ -11,6 +11,7 @@ declare var window: Window;
 export class FavoriteComponent implements OnInit {
   private height: number;
   private data: DataService;
+  private userActivities: any;
 
   constructor(data: DataService) {
     this.data = data;
@@ -18,6 +19,11 @@ export class FavoriteComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.data.getUserActivityList().subscribe((ret: any) => {
+      this.userActivities = ret;
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

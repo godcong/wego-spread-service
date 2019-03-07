@@ -2,7 +2,7 @@
   <mat-card fxFill>
     <mat-card-title>收藏列表</mat-card-title>
   </mat-card>
-  <mat-card routerLink="/activity" *ngFor="let activity of activities" fxFill>
+  <mat-card routerLink="/activity" *ngFor="let activity of userActivities" fxFill>
     <mat-card-subtitle>{{activity.name}}</mat-card-subtitle>
     <mat-card-content>{{activity.comment}}</mat-card-content>
   </mat-card>
