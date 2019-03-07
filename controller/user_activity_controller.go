@@ -13,14 +13,15 @@ import (
 func UserActivityList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := model.GetUser(ctx)
-		page := model.PageUserActivity(model.ParsePaginate(ctx.Request.URL.Query()))
-		e := page.PageWhere(model.Where("user_id = ?", user.ID))
-
+		//page := model.PageUserActivity(model.ParsePaginate(ctx.Request.URL.Query()))
+		act := model.NewUserActivity("")
+		act.UserID = user.ID
+		activities, e := act.Activities(nil)
 		if e != nil {
 			Error(ctx, e)
 			return
 		}
-		Success(ctx, page)
+		Success(ctx, activities)
 	}
 }
 

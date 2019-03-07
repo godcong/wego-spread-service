@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SizeService} from '../size.service';
 
 @Component({
   selector: 'app-activity',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./activity.component.scss']
 })
 export class ActivityComponent implements OnInit {
+  private size: SizeService;
 
-  constructor() { }
+  constructor(size: SizeService) {
+    this.size = size;
+  }
 
   ngOnInit() {
   }

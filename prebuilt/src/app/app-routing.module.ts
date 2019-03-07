@@ -4,6 +4,7 @@ import {HomeComponent} from './home/home.component';
 import {MyComponent} from './my/my.component';
 import {FavoriteComponent} from './favorite/favorite.component';
 import {QrcodeComponent} from './qrcode/qrcode.component';
+import {ActivityComponent} from './activity/activity.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,9 @@ const routes: Routes = [
   },
   {
     path: 'qrcode', component: QrcodeComponent,
+  },
+  {
+    path: 'activity', component: ActivityComponent,
   },
   {
     path: '', redirectTo: '/home', pathMatch: 'full'

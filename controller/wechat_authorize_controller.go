@@ -4,9 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-xorm/xorm"
 	"github.com/godcong/wego"
-	"github.com/godcong/wego-auth-manager/config"
 	"github.com/godcong/wego-auth-manager/model"
-	ut "github.com/godcong/wego-auth-manager/util"
 	"github.com/godcong/wego-spread-service/cache"
 	"github.com/godcong/wego/core"
 	"github.com/godcong/wego/util"
@@ -95,7 +93,7 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 					log.Error(e, i)
 					return nil, xerrors.New("login error")
 				}
-				return ut.ToToken(config.Config().WebToken.Key, token)
+				return token, e
 			}
 			user = &model.User{
 				WechatUserID: weuser.ID,
@@ -148,7 +146,7 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 				log.Error("spread insert", i)
 				return nil, xerrors.New("spread insert error")
 			}
-			return ut.ToToken(config.Config().WebToken.Key, token)
+			return token, nil
 		})
 		if e != nil {
 			log.Error(e)
