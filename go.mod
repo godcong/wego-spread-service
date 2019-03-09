@@ -6,11 +6,12 @@ require (
 	github.com/go-redis/redis v6.14.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/go-xorm/xorm v0.7.1
-	github.com/godcong/go-trait v0.0.0-20190222073043-5e5d5d384ce4
+	github.com/godcong/go-trait v0.0.0-20190308094246-c2aaaec3a01c
 	github.com/godcong/wego v0.0.0-20190224170130-6199037b08b0
 	github.com/godcong/wego-auth-manager v0.0.0-20190307153247-bb692aeac654
 	github.com/google/uuid v1.1.0
 	github.com/rakyll/statik v0.1.5
 	github.com/sirupsen/logrus v1.3.0
 	golang.org/x/xerrors v0.0.0-20190212162355-a5947ffaace3
+	gopkg.in/olivere/elastic.v5 v5.0.79 // indirect
 )

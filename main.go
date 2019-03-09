@@ -17,7 +17,7 @@ import (
 )
 
 var configPath = flag.String("config", "config.toml", "load config from path")
-var logPath = flag.String("log", "spread.log", "set log name")
+var logPath = flag.String("log", "logs/spread.log", "set log name")
 var elk = flag.Bool("elk", false, "set to open the elk")
 
 func main() {
@@ -25,6 +25,8 @@ func main() {
 
 	if *elk {
 		trait.InitElasticLog("wego-spread-service", nil)
+	} else {
+		trait.InitRotateLog(*logPath, nil)
 	}
 
 	sigs := make(chan os.Signal, 1)

@@ -11,31 +11,14 @@ func Router(server *HTTPServer) *gin.Engine {
 	version := "v0"
 	eng := server.Engine
 	eng.Use(middleware.UseCrossOrigin(version))
-	//TODO
-	//staticFS, err := fs.New()
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
 
-	eng.GET("authorize/:activity/*uri", controller.AuthorizeActivitySpreadNotify(version))
-	//eng.NoRoute(func(ctx *gin.Context) {
-	//opened, err := staticFS.Open(ctx.Request.URL.Path)
-	//if ctx.Request.URL.Path == "/" || err != nil {
-	//	opened, err = staticFS.Open("/index.html")
-	//	if err != nil {
-	//		ctx.AbortWithStatus(http.StatusNotFound)
-	//		return
-	//	}
-	//}
-	//ctx.Status(http.StatusOK)
-	//_, err = io.Copy(ctx.Writer, opened)
-	//})
-	//eng.Static("web", "./dist")
+	v0 := eng.Group("api").Group(version)
+	v0.GET("authorize/:activity/*uri", controller.AuthorizeActivitySpreadNotify(version))
 
-	spreadN := eng.Group("spread")
+	spreadN := v0.Group("spread")
 	spreadN.GET("activity/:id", controller.ActivityShow(version))
 
-	spreadA := eng.Group("spread", middleware.AuthCheck(version))
+	spreadA := v0.Group("spread", middleware.AuthCheck(version))
 
 	spreadA.GET("activity", controller.ActivityList(version))
 	spreadA.GET("user/activity", controller.UserActivityList(version))
@@ -43,13 +26,6 @@ func Router(server *HTTPServer) *gin.Engine {
 	spreadA.POST("user/activity/:code", controller.UserActivityJoin(version))
 	spreadA.GET("activity/:id/share", controller.UserActivityShareGet(version))
 	spreadA.GET("spread/:id/share", controller.UserSpreadShareGet(version))
-
-	////登录
-	//g0.POST("login", LoginPOST(verV0))
-	////组织注册
-	//g0.POST("register", RegisterPOST(verV0))
-	//
-	//g0.POST("genesis", GenesisGet(verV0))
 	return eng
 }
 
