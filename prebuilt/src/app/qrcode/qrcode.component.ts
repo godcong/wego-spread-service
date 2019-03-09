@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SizeService} from '../size.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 
 @Component({
   selector: 'app-qrcode',
@@ -11,6 +11,7 @@ export class QrcodeComponent implements OnInit {
   public size: SizeService;
   public qrcode: string;
   private router: ActivatedRoute;
+  private params: ParamMap;
 
   constructor(size: SizeService, router: ActivatedRoute) {
     this.size = size;
@@ -19,8 +20,9 @@ export class QrcodeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router.queryParamMap.subscribe((v: Params) => {
-      console.log(v);
+    this.router.queryParamMap.subscribe((params: ParamMap) => {
+      console.log(params);
+      this.params = params;
     });
   }
 
