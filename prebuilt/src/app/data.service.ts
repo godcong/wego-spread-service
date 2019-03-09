@@ -53,4 +53,18 @@ export class DataService {
     );
   }
 
+  getSpreadShareInfo(id: string, user: string) {
+    return this.client.get('http://localhost:8081/api/v0/spread/spread/' + id + '/share', {
+        params: {
+          user: user,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          token: WebTokenService.getToken(),
+        }
+      }
+    );
+  }
+
+
 }

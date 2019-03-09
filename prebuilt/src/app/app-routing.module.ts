@@ -22,7 +22,7 @@ const routes: Routes = [
     path: 'favorite', component: FavoriteComponent,
   },
   {
-    path: 'qrcode/:code', component: QrcodeComponent,
+    path: 'qrcode/:id', component: QrcodeComponent,
   },
   {
     path: 'activity/:code', component: ActivityComponent,

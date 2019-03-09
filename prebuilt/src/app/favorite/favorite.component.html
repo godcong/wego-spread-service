@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-title>收藏列表</mat-card-title>
   </mat-card>
-  <mat-card [routerLink]="['../qrcode',activity.Activity.code]"
+  <mat-card [routerLink]="['../qrcode',activity.UserActivity.id]"
             [queryParams]="{user:activity.UserActivity.spread_code}"
             *ngFor="let activity of userActivities">
     <mat-card-subtitle>{{activity.Activity.name}}</mat-card-subtitle>
