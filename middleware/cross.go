@@ -15,6 +15,7 @@ func UseCrossOrigin(ver string) gin.HandlerFunc {
 		ctx.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type,Accept,token") //header的类型
 		ctx.Writer.Header().Set("Content-Type", ctx.Request.Header.Get("Content-Type"))      //返回数据格式是json
 		ctx.Writer.WriteHeader(http.StatusOK)
+		ctx.Next()
 		logrus.Info("cross", ctx.Writer.Header())
 	}
 }

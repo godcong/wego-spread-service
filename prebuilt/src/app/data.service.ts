@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {WebTokenService} from './web-token.service';
 
+const HOST = 'http://localhost:8081';
+
 interface UserActivity {
   PropertyID: string;
   ActivityID: string;
@@ -33,7 +35,7 @@ export class DataService {
 
   getActivityList() {
 
-    return this.client.get('http://localhost:8081/api/v0/spread/activity', {
+    return this.client.get(HOST + '/api/v0/spread/activity', {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),
@@ -44,7 +46,7 @@ export class DataService {
   }
 
   getUserActivityList() {
-    return this.client.get('http://localhost:8081/api/v0/spread/user/activity', {
+    return this.client.get(HOST + '/api/v0/spread/user/activity', {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),
@@ -54,9 +56,9 @@ export class DataService {
   }
 
   getSpreadShareInfo(id: string, user: string) {
-    return this.client.get('http://localhost:8081/api/v0/spread/spread/' + id + '/share', {
+    return this.client.get(HOST + '/api/v0/spread/spread/' + id + '/share', {
         params: {
-          user: user,
+          user,
         },
         headers: {
           'Content-Type': 'application/json',
