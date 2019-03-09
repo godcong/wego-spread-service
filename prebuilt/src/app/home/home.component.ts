@@ -10,7 +10,7 @@ import {DataService} from '../data.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnChanges {
-  size: SizeService;
+  public size: SizeService;
   private data: DataService;
   public activities: any;
   private router: ActivatedRoute;

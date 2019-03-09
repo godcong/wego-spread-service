@@ -10,7 +10,7 @@ import {SizeService} from '../size.service';
 export class FavoriteComponent implements OnInit {
   private data: DataService;
   private userActivities: any;
-  private size: SizeService;
+  public size: SizeService;
 
   constructor(data: DataService, size: SizeService) {
     this.data = data;

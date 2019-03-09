@@ -7,7 +7,7 @@ import {SizeService} from '../size.service';
   styleUrls: ['./activity.component.scss']
 })
 export class ActivityComponent implements OnInit {
-  private size: SizeService;
+  public size: SizeService;
 
   constructor(size: SizeService) {
     this.size = size;

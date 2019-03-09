@@ -7,11 +7,10 @@ import {SizeService} from '../size.service';
   styleUrls: ['./my.component.scss']
 })
 export class MyComponent implements OnInit {
-  size: SizeService;
+  public size: SizeService;
 
   constructor(size: SizeService) {
     this.size = size;
-
   }
 
   ngOnInit() {

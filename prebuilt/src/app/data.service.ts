@@ -33,7 +33,7 @@ export class DataService {
 
   getActivityList() {
 
-    return this.client.get('http://localhost:8081/spread/activity', {
+    return this.client.get('http://localhost:8081/api/v0/spread/activity', {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),
@@ -44,7 +44,7 @@ export class DataService {
   }
 
   getUserActivityList() {
-    return this.client.get('http://localhost:8081/spread/user/activity', {
+    return this.client.get('http://localhost:8081/api/v0/spread/user/activity', {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),

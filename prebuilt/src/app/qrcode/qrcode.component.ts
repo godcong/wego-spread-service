@@ -7,8 +7,8 @@ import {SizeService} from '../size.service';
   styleUrls: ['./qrcode.component.scss']
 })
 export class QrcodeComponent implements OnInit {
-  size: SizeService;
-  qrcode: string;
+  public size: SizeService;
+  public qrcode: string;
 
   constructor(size: SizeService) {
     this.size = size;

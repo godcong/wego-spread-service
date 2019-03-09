@@ -22,10 +22,10 @@ const routes: Routes = [
     path: 'favorite', component: FavoriteComponent,
   },
   {
-    path: 'qrcode', component: QrcodeComponent,
+    path: 'qrcode/:code', component: QrcodeComponent,
   },
   {
-    path: 'activity', component: ActivityComponent,
+    path: 'activity/:code', component: ActivityComponent,
   },
   {
     path: '', redirectTo: '/home', pathMatch: 'full'
