@@ -5,10 +5,10 @@
 
   <mat-card>
     <mat-card-content class="share-content">
-      <input matInput placeholder="Favorite food" value="https://" disabled>
+      <input matInput type="text" placeholder="url" [(ngModel)]="qrcode" disabled>
     </mat-card-content>
     <mat-card-actions align="end">
-      <button mat-button>复制</button>
+      <button mat-button ngxClipboard [cbContent]="qrcode" (cbOnSuccess)="onSuccess()">复制</button>
     </mat-card-actions>
   </mat-card>
 

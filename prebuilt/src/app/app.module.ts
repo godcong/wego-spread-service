@@ -15,6 +15,7 @@ import {FavoriteComponent} from './favorite/favorite.component';
 import {QRCodeModule} from 'angularx-qrcode';
 import {ClipboardModule} from 'ngx-clipboard';
 import {ActivityComponent} from './activity/activity.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {ActivityComponent} from './activity/activity.component';
     MatFormFieldModule,
     QRCodeModule,
     ClipboardModule,
+    FormsModule,
 
   ],
   providers: [Window],
