@@ -34,6 +34,8 @@ export class QrcodeComponent implements OnInit {
     });
     this.data.getSpreadShareInfo(this.id, this.user).subscribe((params: ParamMap) => {
       console.log(params);
+      this.qrcode = params['url'];
+      this.data.wxInit(params);
     });
   }
 
