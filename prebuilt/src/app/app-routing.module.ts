@@ -11,35 +11,18 @@ import {MyShareComponent} from './my/my-share/my-share.component';
 import {MyInfoComponent} from './my/my-info/my-info.component';
 
 const routes: Routes = [
-  // {
-  // path: '',
-  // component: AppComponent,
-  // children: [
-  {
-    path: 'home', component: HomeComponent,
-  },
-  {
-    path: 'my', component: MyComponent, children: [
-      {path: 'spread', component: MySpreadComponent},
-      {path: 'info', component: MyInfoComponent},
-      {path: 'share', component: MyShareComponent},
-      {path: 'activity', component: MyActivityComponent},
-    ],
-  },
-  {
-    path: 'favorite', component: FavoriteComponent,
-  },
-  {
-    path: 'qrcode/:id', component: QrcodeComponent,
-  },
-  {
-    path: 'activity/:id', component: ActivityComponent,
-  },
-  {
-    path: '', redirectTo: '/home', pathMatch: 'full'
-  }
-  // ],
-  // },
+
+  {path: 'home', component: HomeComponent},
+  {path: 'my', component: MyComponent},
+  {path: 'my/spread', component: MySpreadComponent},
+  {path: 'my/info', component: MyInfoComponent},
+  {path: 'my/share', component: MyShareComponent},
+  {path: 'my/activity', component: MyActivityComponent},
+  {path: 'favorite', component: FavoriteComponent},
+  {path: 'qrcode/:id', component: QrcodeComponent},
+  {path: 'activity/:id', component: ActivityComponent},
+  {path: '', redirectTo: '/home', pathMatch: 'full'}
+
 ];
 
 const config: ExtraOptions = {
