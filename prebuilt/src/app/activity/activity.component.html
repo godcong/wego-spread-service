@@ -4,7 +4,11 @@
   </mat-card>
   <mat-card>
     <mat-card-subtitle>{{activity?.name}}</mat-card-subtitle>
+    <mat-card-content>{{activity?.code}}</mat-card-content>
     <mat-card-content>{{activity?.comment}}</mat-card-content>
+    <mat-card-content>{{activity?.mode}}</mat-card-content>
+    <mat-card-content *ngIf="activity.is_verify">{{'是'}}</mat-card-content>
+    <mat-card-content *ngIf="!activity.is_verify">{{'否'}}</mat-card-content>
     <mat-card-actions align="end">
       <button mat-button>加入活动</button>
     </mat-card-actions>

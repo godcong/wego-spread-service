@@ -4,6 +4,6 @@
   </mat-card>
   <mat-card [routerLink]="['../activity',activity.id]" *ngFor="let activity of activities">
     <mat-card-subtitle>{{activity.name}}</mat-card-subtitle>
-    <mat-card-content>{{activity.comment}}</mat-card-content>
+    <mat-card-content>{{activity.code}}</mat-card-content>
   </mat-card>
 </mat-grid-list>
