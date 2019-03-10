@@ -3,12 +3,27 @@
     <mat-card-title>活动信息</mat-card-title>
   </mat-card>
   <mat-card>
-    <mat-card-subtitle>{{activity?.name}}</mat-card-subtitle>
+    <mat-card-subtitle>{{'活动名称'}}</mat-card-subtitle>
+    <mat-card-content>{{activity?.name}}</mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-subtitle>{{'活动码'}}</mat-card-subtitle>
     <mat-card-content>{{activity?.code}}</mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-subtitle>{{'活动介绍'}}</mat-card-subtitle>
     <mat-card-content>{{activity?.comment}}</mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-subtitle>{{'分成模式'}}</mat-card-subtitle>
     <mat-card-content>{{activity?.mode}}</mat-card-content>
-    <mat-card-content *ngIf="activity.is_verify">{{'是'}}</mat-card-content>
-    <mat-card-content *ngIf="!activity.is_verify">{{'否'}}</mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-subtitle>{{'加入需要验证'}}</mat-card-subtitle>
+    <mat-card-content *ngIf="activity?.is_verify">{{'是'}}</mat-card-content>
+    <mat-card-content *ngIf="!activity?.is_verify">{{'否'}}</mat-card-content>
+  </mat-card>
+  <mat-card>
     <mat-card-actions align="end">
       <button mat-button>加入活动</button>
     </mat-card-actions>
