@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SizeService} from '../size.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {DataService} from '../data.service';
+import {WechatService} from '../wechat.service';
 
 @Component({
   selector: 'app-qrcode',
@@ -15,11 +16,13 @@ export class QrcodeComponent implements OnInit {
   private id: string;
   private user: string;
   private data: DataService;
+  private wechat: WechatService;
 
-  constructor(size: SizeService, router: ActivatedRoute, data: DataService) {
+  constructor(size: SizeService, router: ActivatedRoute, data: DataService, wechat: WechatService) {
     this.size = size;
     this.router = router;
     this.data = data;
+    this.wechat = wechat;
     this.qrcode = 'http://localhost:8080';
   }
 
@@ -34,8 +37,8 @@ export class QrcodeComponent implements OnInit {
     });
     this.data.getSpreadShareInfo(this.id, this.user).subscribe((params: ParamMap) => {
       console.log(params);
-      this.qrcode = params['url'];
-      this.data.wxInit(params);
+      this.qrcode = params.url;
+      this.wechat.init(params);
     });
   }
 

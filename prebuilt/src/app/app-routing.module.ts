@@ -25,7 +25,7 @@ const routes: Routes = [
     path: 'qrcode/:id', component: QrcodeComponent,
   },
   {
-    path: 'activity/:code', component: ActivityComponent,
+    path: 'activity/:id', component: ActivityComponent,
   },
   {
     path: '', redirectTo: '/home', pathMatch: 'full'

@@ -24,6 +24,7 @@ func UserSpreadList(ver string) gin.HandlerFunc {
 func UserSpreadShareGet(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
+
 		user := model.GetUser(ctx)
 		act := model.NewUserActivity(id)
 		act.UserID = user.ID
@@ -32,7 +33,13 @@ func UserSpreadShareGet(ver string) gin.HandlerFunc {
 			Error(ctx, e)
 			return
 		}
-		jssdk := wego.NewJSSDK(p.Config().JSSDK)
+		url, b := ctx.GetQuery("url")
+		if !b {
+			url = p.Host
+		}
+		jssdk := wego.NewJSSDK(p.Config().JSSDK, wego.JSSDKOption{
+			URL: url,
+		})
 		config := jssdk.BuildConfig("")
 		if config == nil {
 			Error(ctx, xerrors.New("null config result"))

@@ -1,3 +1,12 @@
 <mat-grid-list cols="1" rowHeight='{{size.height}}'>
-
+  <mat-card>
+    <mat-card-title>活动信息</mat-card-title>
+  </mat-card>
+  <mat-card>
+    <mat-card-subtitle>{{activity?.name}}</mat-card-subtitle>
+    <mat-card-content>{{activity?.comment}}</mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button>加入活动</button>
+    </mat-card-actions>
+  </mat-card>
 </mat-grid-list>
