@@ -16,6 +16,10 @@ import {QRCodeModule} from 'angularx-qrcode';
 import {ClipboardModule} from 'ngx-clipboard';
 import {ActivityComponent} from './activity/activity.component';
 import {FormsModule} from '@angular/forms';
+import { MyActivityComponent } from './my/my-activity/my-activity.component';
+import { MySpreadComponent } from './my/my-spread/my-spread.component';
+import { MyInfoComponent } from './my/my-info/my-info.component';
+import { MyShareComponent } from './my/my-share/my-share.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import {FormsModule} from '@angular/forms';
     HomeComponent,
     MyComponent,
     FavoriteComponent,
-    ActivityComponent
+    ActivityComponent,
+    MyActivityComponent,
+    MySpreadComponent,
+    MyInfoComponent,
+    MyShareComponent,
   ],
   imports: [
     CommonModule,
