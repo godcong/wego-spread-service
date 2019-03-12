@@ -53,8 +53,12 @@ export class DataService {
     );
   }
 
-  getUserActivityList() {
-    return this.client.get(HOST + '/api/v0/spread/user/activity', {
+  getUserActivityList(favorite: boolean) {
+    let url = '/api/v0/spread/user/activity/all';
+    if (true === favorite) {
+      url = '/api/v0/spread/user/activity/favorite';
+    }
+    return this.client.get(HOST + url, {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),

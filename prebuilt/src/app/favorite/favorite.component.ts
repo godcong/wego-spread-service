@@ -18,7 +18,7 @@ export class FavoriteComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.getUserActivityList().subscribe((ret) => {
+    this.data.getUserActivityList(true).subscribe((ret) => {
       console.log(ret);
       this.userActivities = ret;
     }, error => {
