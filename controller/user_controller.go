@@ -256,120 +256,16 @@ func UserShow(ver string) gin.HandlerFunc {
 	}
 }
 
-// UserDelete godoc
-// @Summary Delete user
-// @Description Delete user
-// @Tags admin
-// @Accept  json
-// @Produce  json
-// @Param token header string true "login token"
-// @Param id path string true "User ID"
-// @success 200 {object} model.User
-// @Failure 400 {object} controller.CodeMessage
-// @Router /admin/user/{id} [delete]
-func UserDelete(ver string) gin.HandlerFunc {
+// UserInfo ...
+func UserInfo(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		id := ctx.Param("id")
-		user := model.NewUser(id)
-		_, err := model.Delete(nil, user)
+		userToken := model.GetUser(ctx)
+		user := model.NewUser(userToken.ID)
+		_, err := model.Get(nil, user)
 		if err != nil {
 			Error(ctx, err)
 			return
 		}
 		Success(ctx, user)
-	}
-}
-
-// UserPermissionList godoc
-// @Summary List permission
-// @Description List permission
-// @Tags admin
-// @Accept  json
-// @Produce  json
-// @Param token header string true "login token"
-// @Param id path string true "User ID"
-// @success 200 {array} model.Permission
-// @Failure 400 {object} controller.CodeMessage
-// @Router /admin/user/{id}/permission [get]
-func UserPermissionList(ver string) gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		id := ctx.Param("id")
-		user := model.NewUser(id)
-		permissions, err := user.Permissions()
-		if err != nil {
-			Error(ctx, err)
-			return
-		}
-		Success(ctx, permissions)
-	}
-}
-
-// UserRoleList godoc
-// @Summary List role
-// @Description List role
-// @Tags admin
-// @Accept  json
-// @Produce  json
-// @Param token header string true "login token"
-// @Param id path string true "User ID"
-// @success 200 {array} model.Role
-// @Failure 400 {object} controller.CodeMessage
-// @Router /admin/user/{id}/role [get]
-func UserRoleList(ver string) gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		id := ctx.Param("id")
-		user := model.NewUser(id)
-		roles, err := user.Roles()
-		if err != nil {
-			Error(ctx, err)
-			return
-		}
-		Success(ctx, roles)
-	}
-}
-
-// UserRoleAdd godoc
-// @Summary List role
-// @Description List role
-// @Tags admin
-// @Accept  json
-// @Produce  json
-// @Param token header string true "login token"
-// @Param id path string true "User ID"
-// @success 200 {array} model.RoleUser
-// @Failure 400 {object} controller.CodeMessage
-// @Router /admin/user/{id}/role/{rid} [post]
-func UserRoleAdd(ver string) gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		id := ctx.Param("id")
-		rid := ctx.Param("rid")
-		user := model.NewUser(id)
-		role := model.NewRole(rid)
-		b, e := user.Get()
-		if e != nil || !b {
-			log.Error(e, b)
-			Error(ctx, xerrors.New("no user"))
-			return
-		}
-		b, e = role.Get()
-		if e != nil || !b {
-			log.Error(e, b)
-			Error(ctx, xerrors.New("no role"))
-			return
-		}
-
-		ru := model.RoleUser{
-			RoleID: role.ID,
-			UserID: user.ID,
-		}
-		i, e := model.Insert(nil, &ru)
-		if e != nil || i == 0 {
-			log.Error(e, i)
-			Error(ctx, xerrors.New("insert role error"))
-			return
-		}
-		ru.User = user
-		ru.Role = role
-		Success(ctx, &ru)
 	}
 }

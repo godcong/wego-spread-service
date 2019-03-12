@@ -76,4 +76,14 @@ export class DataService {
     );
   }
 
+  getMyInfo() {
+    return this.client.get(HOST + '/api/v0/spread/user/info', {
+        headers: {
+          'Content-Type': 'application/json',
+          token: WebTokenService.getToken(),
+        }
+      }
+    );
+  }
+
 }

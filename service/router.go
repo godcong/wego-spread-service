@@ -21,6 +21,7 @@ func Router(server *HTTPServer) *gin.Engine {
 	spreadA := v0.Group("spread", middleware.AuthCheck(version))
 
 	spreadA.GET("activity", controller.ActivityList(version))
+	spreadA.GET("user/info", controller.UserInfo(version))
 	spreadA.GET("user/activity", controller.UserActivityList(version))
 	spreadA.GET("user/spread", controller.UserSpreadList(version))
 	spreadA.POST("user/activity/:code", controller.UserActivityJoin(version))
