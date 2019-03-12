@@ -1,3 +1,9 @@
-<p>
-  my-spread works!
-</p>
+<mat-grid-list cols="1" rowHeight='{{size.height}}'>
+  <mat-card>
+    <mat-card-title>活动列表</mat-card-title>
+  </mat-card>
+  <mat-card *ngFor="let spread of spreads">
+    <mat-card-subtitle>{{spread.id}}</mat-card-subtitle>
+    <mat-card-content>{{spread.id}}</mat-card-content>
+  </mat-card>
+</mat-grid-list>

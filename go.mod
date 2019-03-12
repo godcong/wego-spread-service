@@ -8,10 +8,9 @@ require (
 	github.com/go-xorm/xorm v0.7.1
 	github.com/godcong/go-trait v0.0.0-20190308094246-c2aaaec3a01c
 	github.com/godcong/wego v0.0.0-20190224170130-6199037b08b0
-	github.com/godcong/wego-auth-manager v0.0.0-20190307153247-bb692aeac654
+	github.com/godcong/wego-auth-manager v0.0.0-20190312182425-ae751e68ecd7
 	github.com/google/uuid v1.1.0
 	github.com/rakyll/statik v0.1.5
 	github.com/sirupsen/logrus v1.3.0
 	golang.org/x/xerrors v0.0.0-20190212162355-a5947ffaace3
-	gopkg.in/olivere/elastic.v5 v5.0.79 // indirect
 )

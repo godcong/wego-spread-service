@@ -261,11 +261,11 @@ func UserInfo(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		userToken := model.GetUser(ctx)
 		user := model.NewUser(userToken.ID)
-		_, err := model.Get(nil, user)
-		if err != nil {
-			Error(ctx, err)
+		wechatUser, e := user.WechatUser()
+		if e != nil {
+			Error(ctx, e)
 			return
 		}
-		Success(ctx, user)
+		Success(ctx, wechatUser)
 	}
 }

@@ -86,4 +86,25 @@ export class DataService {
     );
   }
 
+  getMyActivity() {
+    return this.client.get(HOST + '/api/v0/spread/user/activity', {
+        headers: {
+          'Content-Type': 'application/json',
+          token: WebTokenService.getToken(),
+        }
+      }
+    );
+  }
+
+
+  getMySpread() {
+    return this.client.get(HOST + '/api/v0/spread/user/spread', {
+        headers: {
+          'Content-Type': 'application/json',
+          token: WebTokenService.getToken(),
+        }
+      }
+    );
+  }
+
 }
