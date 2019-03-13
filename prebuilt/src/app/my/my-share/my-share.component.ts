@@ -25,4 +25,8 @@ export class MyShareComponent implements OnInit {
       console.log(error);
     });
   }
+
+  joinFavorite(id: any) {
+    
+  }
 }

@@ -31,6 +31,13 @@ func UserActivityList(ver string) gin.HandlerFunc {
 	}
 }
 
+// UserActivityFavorite ...
+func UserActivityFavorite(ver string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+
+	}
+}
+
 // UserActivityShareGet 活动分享
 func UserActivityShareGet(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {

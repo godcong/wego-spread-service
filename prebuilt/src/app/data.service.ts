@@ -111,4 +111,13 @@ export class DataService {
     );
   }
 
+  postFavoriteJoin(code: string) {
+    return this.client.post(HOST + '/api/v0/spread/user/activity/' + code, null, {
+        headers: {
+          'Content-Type': 'application/json',
+          token: WebTokenService.getToken(),
+        }
+      }
+    );
+  }
 }
