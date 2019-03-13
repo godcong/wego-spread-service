@@ -32,8 +32,15 @@ export class ActivityComponent implements OnInit {
     });
   }
 
-  Join() {
-    console.log('join');
+  joinActivity(code: string) {
+    console.log(code);
+    this.data.postActivityJoin(code).subscribe((params: any) => {
+      console.log(params);
+      alert('加入申请成功');
+    }, (error: any) => {
+      console.log(error);
+      alert(error.error.message);
+    });
   }
 
 }

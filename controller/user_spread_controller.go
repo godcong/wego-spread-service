@@ -11,12 +11,13 @@ import (
 func UserSpreadList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := model.GetUser(ctx)
-		spreads, e := user.Spreads()
+		spread := model.NewSpread("")
+		activities, e := spread.SpreadActivity(model.Where("spread.parent_user_id_1 = ?", user.ID))
 		if e != nil {
 			Error(ctx, e)
 			return
 		}
-		Success(ctx, spreads)
+		Success(ctx, activities)
 	}
 }
 

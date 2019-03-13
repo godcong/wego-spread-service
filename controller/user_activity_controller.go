@@ -14,13 +14,13 @@ import (
 func UserActivityList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := model.GetUser(ctx)
-		cas := ctx.Param("param")
+		cas := ctx.Param("favorite")
 		act := model.NewUserActivity("")
 		act.UserID = user.ID
 
 		var session *xorm.Session
 		if cas == "favorite" {
-			session = model.Where("user_activity.is_star = ?", true)
+			session = model.Where("user_activity.is_favorite = ?", true)
 		}
 		activities, e := act.Activities(session)
 		if e != nil {
@@ -68,9 +68,14 @@ func UserActivityJoin(ver string) gin.HandlerFunc {
 			Error(ctx, xerrors.New("activity not found"))
 			return
 		}
+		verified := false
+		if !act.NeedVerify {
+			verified = true
+		}
 		ua := model.UserActivity{
 			ActivityID: act.ID,
 			UserID:     user.ID,
+			IsVerified: verified,
 			SpreadCode: util.GenCRC32(act.ID + user.ID),
 		}
 		i, e := model.Insert(nil, &ua)

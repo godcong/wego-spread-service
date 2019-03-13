@@ -1,9 +1,13 @@
 <mat-grid-list cols="1" rowHeight='{{size.height}}'>
   <mat-card>
-    <mat-card-title>活动列表</mat-card-title>
+    <mat-card-title>我的推广</mat-card-title>
   </mat-card>
   <mat-card *ngFor="let spread of spreads">
-    <mat-card-subtitle>{{spread.id}}</mat-card-subtitle>
-    <mat-card-content>{{spread.id}}</mat-card-content>
+    <mat-card-subtitle>活动名称</mat-card-subtitle>
+    <mat-card-content>{{spread.Activity.name}}</mat-card-content>
+    <mat-card-subtitle>分享码</mat-card-subtitle>
+    <mat-card-content>{{spread.Spread.code}}</mat-card-content>
+    <mat-card-subtitle>用户昵称</mat-card-subtitle>
+    <mat-card-content>{{spread.Spread.nickname}}</mat-card-content>
   </mat-card>
 </mat-grid-list>

@@ -1,6 +1,6 @@
 <mat-grid-list cols="1" rowHeight='{{size.height}}'>
   <mat-card>
-    <mat-card-title>活动列表</mat-card-title>
+    <mat-card-title>我的活动</mat-card-title>
   </mat-card>
   <mat-card [routerLink]="['../activity',activity.Activity.id]" *ngFor="let activity of activities">
     <mat-card-subtitle>{{activity.Activity.name}}</mat-card-subtitle>

@@ -19,7 +19,7 @@ export class MyActivityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.getMyActivity().subscribe((params: any) => {
+    this.data.getUserActivityList(false).subscribe((params: any) => {
       console.log(params);
       this.activities = params;
     });
