@@ -13,7 +13,7 @@ export class ActivityComponent implements OnInit {
   private data: DataService;
   private router: ActivatedRoute;
   private id: string;
-  private activity: ParamMap;
+  private activity: any;
 
   constructor(size: SizeService, data: DataService, router: ActivatedRoute) {
     this.size = size;
@@ -26,10 +26,14 @@ export class ActivityComponent implements OnInit {
       console.log(params);
       this.id = params.get('id');
     });
-    this.data.getActivityInfo(this.id).subscribe((params: ParamMap) => {
+    this.data.getActivityInfo(this.id).subscribe((params: any) => {
       console.log(params);
       this.activity = params;
     });
+  }
+
+  Join() {
+    console.log('join');
   }
 
 }

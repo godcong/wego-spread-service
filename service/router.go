@@ -22,7 +22,7 @@ func Router(server *HTTPServer) *gin.Engine {
 
 	spreadA.GET("activity", controller.ActivityList(version))
 	spreadA.GET("user/info", controller.UserInfo(version))
-	spreadA.GET("user/activity", controller.UserActivityList(version))
+	spreadA.GET("user/activity/:param", controller.UserActivityList(version))
 	spreadA.GET("user/spread", controller.UserSpreadList(version))
 	spreadA.POST("user/activity/:code", controller.UserActivityJoin(version))
 	spreadA.GET("activity/:id/share", controller.UserActivityShareGet(version))

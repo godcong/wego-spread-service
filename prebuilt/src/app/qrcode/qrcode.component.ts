@@ -35,7 +35,7 @@ export class QrcodeComponent implements OnInit {
       console.log(params);
       this.id = params.get('id');
     });
-    this.data.getSpreadShareInfo(this.id, this.user).subscribe((params: ParamMap) => {
+    this.data.getSpreadShareInfo(this.id, this.user).subscribe((params: any) => {
       console.log(params);
       this.qrcode = params.url;
       this.wechat.init(params);

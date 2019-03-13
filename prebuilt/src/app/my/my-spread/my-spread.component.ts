@@ -11,7 +11,7 @@ import {ParamMap} from '@angular/router';
 export class MySpreadComponent implements OnInit {
   public size: SizeService;
   private data: DataService;
-  public spreads: ParamMap;
+  public spreads: any;
 
   constructor(size: SizeService, data: DataService) {
     this.size = size;
@@ -19,7 +19,7 @@ export class MySpreadComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.getMySpread().subscribe((params: ParamMap) => {
+    this.data.getMySpread().subscribe((params: any) => {
       console.log(params);
       this.spreads = params;
     });

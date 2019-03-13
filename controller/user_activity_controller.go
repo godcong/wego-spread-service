@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/go-xorm/xorm"
 	"github.com/godcong/wego"
 	"github.com/godcong/wego-auth-manager/model"
 	"github.com/godcong/wego/util"
@@ -13,10 +14,15 @@ import (
 func UserActivityList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := model.GetUser(ctx)
-		//page := model.PageUserActivity(model.ParsePaginate(ctx.Request.URL.Query()))
+		cas := ctx.Param("param")
 		act := model.NewUserActivity("")
 		act.UserID = user.ID
-		activities, e := act.Activities(nil)
+
+		var session *xorm.Session
+		if cas == "favorite" {
+			session = model.Where("user_activity.is_star = ?", true)
+		}
+		activities, e := act.Activities(session)
 		if e != nil {
 			Error(ctx, e)
 			return

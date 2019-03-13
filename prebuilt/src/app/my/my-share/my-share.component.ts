@@ -18,9 +18,9 @@ export class MyShareComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.getUserActivityList(false).subscribe((ret) => {
-      console.log(ret);
-      this.userActivities = ret;
+    this.data.getUserActivityList(false).subscribe((params: any) => {
+      console.log(params);
+      this.userActivities = params;
     }, error => {
       console.log(error);
     });

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SizeService} from '../size.service';
 import {DataService} from '../data.service';
-import {ParamMap} from '@angular/router';
+
 
 @Component({
   selector: 'app-my',
@@ -11,7 +11,7 @@ import {ParamMap} from '@angular/router';
 export class MyComponent implements OnInit {
   public size: SizeService;
   private data: DataService;
-  private info: ParamMap;
+  private info: any;
 
   constructor(size: SizeService, data: DataService) {
     this.size = size;
@@ -19,7 +19,7 @@ export class MyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.getMyInfo().subscribe((params: ParamMap) => {
+    this.data.getMyInfo().subscribe((params: any) => {
       console.log(params);
       this.info = params;
     });

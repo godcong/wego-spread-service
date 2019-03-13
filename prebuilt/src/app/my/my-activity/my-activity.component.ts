@@ -11,7 +11,7 @@ import {SizeService} from '../../size.service';
 export class MyActivityComponent implements OnInit {
   public size: SizeService;
   private data: DataService;
-  public activities: ParamMap;
+  public activities: any;
 
   constructor(size: SizeService, data: DataService) {
     this.data = data;
@@ -19,7 +19,7 @@ export class MyActivityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.getMyActivity().subscribe((params: ParamMap) => {
+    this.data.getMyActivity().subscribe((params: any) => {
       console.log(params);
       this.activities = params;
     });
