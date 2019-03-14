@@ -4,7 +4,7 @@
   </mat-card>
   <mat-card>
     <mat-card-subtitle>总推广数</mat-card-subtitle>
-    <mat-card-content>待统计</mat-card-content>
+    <mat-card-content>{{total}}</mat-card-content>
   </mat-card>
   <mat-card *ngFor="let spread of spreads">
     <mat-card-subtitle>{{spread.Activity.name}}</mat-card-subtitle>

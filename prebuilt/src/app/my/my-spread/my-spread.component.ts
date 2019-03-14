@@ -12,6 +12,7 @@ export class MySpreadComponent implements OnInit {
   public size: SizeService;
   private data: DataService;
   public spreads: any;
+  public total: number;
 
   constructor(size: SizeService, data: DataService) {
     this.size = size;
@@ -19,9 +20,10 @@ export class MySpreadComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.getMySpread().subscribe((params: any) => {
+    this.data.getMySpread().subscribe((params: any[]) => {
       console.log(params);
       this.spreads = params;
+      this.total = params.length;
     });
   }
 
