@@ -18,12 +18,21 @@ export class FavoriteComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.getUserActivityList(true).subscribe((ret) => {
-      console.log(ret);
-      this.userActivities = ret;
+    this.data.getUserActivityList(true).subscribe((params: any) => {
+      console.log(params);
+      this.userActivities = params;
     }, error => {
       console.log(error);
+      alert(error.error.message);
     });
   }
 
+  joinFavorite(id: any, status: boolean) {
+    this.data.postFavoriteJoin(id, status).subscribe((params: any) => {
+      console.log(params);
+    }, error => {
+      console.log(error);
+      alert(error.error.message);
+    });
+  }
 }

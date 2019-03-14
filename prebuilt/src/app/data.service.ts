@@ -54,9 +54,9 @@ export class DataService {
   }
 
   getUserActivityList(favorite: boolean) {
-    let url = '/api/v0/spread/user/activity/favorite/all';
+    let url = '/api/v0/spread/user/activity/show/all';
     if (true === favorite) {
-      url = '/api/v0/spread/user/activity/favorite/favorite';
+      url = '/api/v0/spread/user/activity/show/favorite';
     }
     return this.client.get(HOST + url, {
         headers: {
@@ -101,8 +101,8 @@ export class DataService {
     );
   }
 
-  postActivityJoin(code: string) {
-    return this.client.post(HOST + '/api/v0/spread/user/activity/' + code, null, {
+  postActivityJoin(id: string, code: string) {
+    return this.client.post(HOST + '/api/v0/spread/user/activity/' + id + '/join/' + code, null, {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),
@@ -111,8 +111,12 @@ export class DataService {
     );
   }
 
-  postFavoriteJoin(id: string) {
-    return this.client.post(HOST + '/api/v0/spread/user/activity/' + id + '/favorite', null, {
+  postFavoriteJoin(id: string, b: boolean) {
+    let favorite = 'favorite';
+    if (!b) {
+      favorite = 'unfavorite';
+    }
+    return this.client.post(HOST + '/api/v0/spread/user/activity/' + id + '/favorite/' + favorite, null, {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),

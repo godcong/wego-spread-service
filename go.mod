@@ -8,7 +8,7 @@ require (
 	github.com/go-xorm/xorm v0.7.1
 	github.com/godcong/go-trait v0.0.0-20190308094246-c2aaaec3a01c
 	github.com/godcong/wego v0.0.0-20190224170130-6199037b08b0
-	github.com/godcong/wego-auth-manager v0.0.0-20190313171826-4a99988c1820
+	github.com/godcong/wego-auth-manager v0.0.0-20190314173449-d0aaa981c371
 	github.com/google/uuid v1.1.0
 	github.com/rakyll/statik v0.1.5
 	github.com/sirupsen/logrus v1.3.0

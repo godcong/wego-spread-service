@@ -7,7 +7,6 @@ import {QrcodeComponent} from './qrcode/qrcode.component';
 import {ActivityComponent} from './activity/activity.component';
 import {MySpreadComponent} from './my/my-spread/my-spread.component';
 import {MyActivityComponent} from './my/my-activity/my-activity.component';
-import {MyShareComponent} from './my/my-share/my-share.component';
 import {MyInfoComponent} from './my/my-info/my-info.component';
 import {MyCommissionComponent} from './my/my-commission/my-commission.component';
 
@@ -18,7 +17,6 @@ const routes: Routes = [
   {path: 'my/spread', component: MySpreadComponent},
   {path: 'my/info', component: MyInfoComponent},
   {path: 'my/commission', component: MyCommissionComponent},
-  {path: 'my/share', component: MyShareComponent},
   {path: 'my/activity', component: MyActivityComponent},
   {path: 'favorite', component: FavoriteComponent},
   {path: 'qrcode/:id', component: QrcodeComponent},

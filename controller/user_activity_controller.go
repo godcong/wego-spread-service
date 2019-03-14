@@ -34,7 +34,30 @@ func UserActivityList(ver string) gin.HandlerFunc {
 // UserActivityFavorite ...
 func UserActivityFavorite(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		user := model.GetUser(ctx)
+		id := ctx.Param("id")
+		favorite := ctx.Param("status")
+		act := model.NewUserActivity(id)
+		act.UserID = user.ID
+		b, e := model.Get(nil, act)
+		if e != nil || !b {
+			log.Error(e, b)
+			Error(ctx, xerrors.New("activity not found!"))
+			return
+		}
+		act.IsFavorite = false
+		if favorite == "favorite" {
+			act.IsFavorite = true
+		}
 
+		//i, e := act.Update("is_favorite")
+		i, e := model.UpdateWithColumn(nil, act.ID, act, "is_favorite")
+		if e != nil || i == 0 {
+			log.Error(e, i)
+			Error(ctx, xerrors.New("activity update error"))
+			return
+		}
+		Success(ctx, act)
 	}
 }
 

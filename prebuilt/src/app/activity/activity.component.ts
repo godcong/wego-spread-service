@@ -29,12 +29,15 @@ export class ActivityComponent implements OnInit {
     this.data.getActivityInfo(this.id).subscribe((params: any) => {
       console.log(params);
       this.activity = params;
+    }, (error: any) => {
+      console.log(error);
+      alert(error.error.message);
     });
   }
 
-  joinActivity(code: string) {
+  joinActivity(id: string, code: string) {
     console.log(code);
-    this.data.postActivityJoin(code).subscribe((params: any) => {
+    this.data.postActivityJoin(id, code).subscribe((params: any) => {
       console.log(params);
       alert('加入申请成功');
     }, (error: any) => {
