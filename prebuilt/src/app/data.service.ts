@@ -111,8 +111,8 @@ export class DataService {
     );
   }
 
-  postFavoriteJoin(code: string) {
-    return this.client.post(HOST + '/api/v0/spread/user/activity/' + code, null, {
+  postFavoriteJoin(id: string) {
+    return this.client.post(HOST + '/api/v0/spread/user/activity/' + id + '/favorite', null, {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),

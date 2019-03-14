@@ -27,6 +27,11 @@ export class MyShareComponent implements OnInit {
   }
 
   joinFavorite(id: any) {
-    
+    this.data.postFavoriteJoin(id).subscribe((params: any) => {
+      console.log(params);
+      this.userActivities = params;
+    }, error => {
+      console.log(error);
+    });
   }
 }
