@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {WebTokenService} from './web-token.service';
 
-const HOST = 'http://localhost:8081';
+const HOST = '';
 
 interface UserActivity {
   PropertyID: string;

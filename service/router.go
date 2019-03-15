@@ -4,14 +4,25 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/godcong/wego-spread-service/controller"
 	"github.com/godcong/wego-spread-service/middleware"
+	"github.com/rakyll/statik/fs"
+	"log"
+	"net/http"
 )
 
 // Router ...
 func Router(server *HTTPServer) *gin.Engine {
 	version := "v0"
 	eng := server.Engine
-	eng.Use(middleware.UseCrossOrigin(version))
-
+	//eng.Use(middleware.UseCrossOrigin(version))
+	st, err := fs.New()
+	if err != nil {
+		log.Fatal(err)
+	}
+	eng.NoRoute(func(ctx *gin.Context) {
+		ctx.Redirect(http.StatusMovedPermanently, "/webui")
+	})
+	eng.StaticFS("webui", st)
+	eng.StaticFile("MP_verify_Z0o2ocg9NBJ4cDFG.txt", "./static/MP_verify_Z0o2ocg9NBJ4cDFG.txt")
 	v0 := eng.Group("api").Group(version)
 	v0.GET("authorize/:activity/*uri", controller.AuthorizeActivitySpreadNotify(version))
 
