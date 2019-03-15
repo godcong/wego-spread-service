@@ -11,6 +11,7 @@ import (
 	"github.com/godcong/wego-spread-service/cache"
 	"github.com/godcong/wego-spread-service/service"
 	_ "github.com/godcong/wego-spread-service/statik"
+	log "github.com/sirupsen/logrus"
 	"os"
 	"os/signal"
 	"syscall"
@@ -34,6 +35,7 @@ func main() {
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
 	cfg := config.InitConfig(*configPath)
+	log.Infof("%+v", cfg)
 	model.InitDB(cfg)
 
 	c := cache.DefaultCache()

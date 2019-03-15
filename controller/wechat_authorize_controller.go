@@ -26,7 +26,7 @@ func Authorize(ver string) gin.HandlerFunc {
 func AuthorizeActivitySpreadNotify(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		act := ctx.Param("activity")
-		config, e := cache.CachedConfig(act)
+		config, e := cache.CachedConfig(act) //activity code
 		if e != nil {
 			log.Error(e)
 			Error(ctx, e)
@@ -159,7 +159,7 @@ func UserHook(ctx *gin.Context, code *string, id string, wtype string) wego.User
 			v := url.Values{
 				"token": {v},
 			}
-			ctx.Redirect(http.StatusFound, "http://localhost:8081/home?"+v.Encode())
+			ctx.Redirect(http.StatusFound, "https://wego.quick58.com/#/home?"+v.Encode())
 			ctx.AbortWithStatus(http.StatusFound)
 		}
 

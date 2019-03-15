@@ -9,7 +9,7 @@ var caches = map[string]cache.Cache{}
 
 // DefaultCache ...
 func DefaultCache() cache.Cache {
-	return RedisCache("localhost:6379", "2rXfzaNKqX1b", 1)
+	return RedisCache("localhost:6379", "", 1)
 }
 
 // RedisCache ...
