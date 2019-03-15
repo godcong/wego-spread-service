@@ -6,6 +6,7 @@ import (
 	"github.com/godcong/wego-auth-manager/model"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/xerrors"
+	"strings"
 )
 
 // UserSpreadList 我的推广
@@ -41,10 +42,8 @@ func UserSpreadShareGet(ver string) gin.HandlerFunc {
 			Error(ctx, e)
 			return
 		}
-		url, b := ctx.GetQuery("url")
-		if !b {
-			url = p.Host + " /api/v0/authorize/" + activities[0].Activity.Code + "/?" + "user=" + activities[0].UserActivity.SpreadCode
-		}
+		url := ctx.Query("url")
+		log.Info("url:", url)
 		jssdk := wego.NewJSSDK(p.Config().JSSDK, wego.JSSDKOption{
 			URL: url,
 		})
@@ -53,6 +52,10 @@ func UserSpreadShareGet(ver string) gin.HandlerFunc {
 			Error(ctx, xerrors.New("null config result"))
 			return
 		}
-		Success(ctx, config)
+		ret := make(map[string]interface{})
+		ret["config"] = config
+		ret["url"] = strings.TrimSpace(p.Host) + "/api/v0/authorize/" + activities[0].Activity.Code + "/?" + "user=" + activities[0].UserActivity.SpreadCode
+		log.Info("ret:", ret)
+		Success(ctx, ret)
 	}
 }

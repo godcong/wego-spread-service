@@ -98,6 +98,11 @@ func UserActivityJoin(ver string) gin.HandlerFunc {
 			Error(ctx, xerrors.New("activity not found"))
 			return
 		}
+		property, e := act.Property()
+		if e != nil {
+			Error(ctx, xerrors.New("property not found"))
+			return
+		}
 		verified := false
 		if !act.NeedVerify {
 			verified = true
@@ -106,6 +111,7 @@ func UserActivityJoin(ver string) gin.HandlerFunc {
 			ActivityID: act.ID,
 			UserID:     user.ID,
 			IsVerified: verified,
+			PropertyID: property.ID,
 			SpreadCode: util.GenCRC32(act.ID + user.ID),
 		}
 		i, e := model.Insert(nil, &ua)

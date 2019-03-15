@@ -33,6 +33,8 @@ func AuthorizeActivitySpreadNotify(ver string) gin.HandlerFunc {
 			return
 		}
 		code := ctx.Query("user") //user spread code
+
+		config.OfficialAccount.OAuth.RedirectURI = "https://wego.quick58.com/api/v0/authorize/" + act + "/"
 		account := wego.NewOfficialAccount(config.OfficialAccount)
 		account.HandleAuthorize(StateHook(ctx, code), TokenHook(ctx, &code), UserHook(ctx, &code, account.AppID, model.WechatTypeH5)).ServeHTTP(ctx.Writer, ctx.Request)
 	}
