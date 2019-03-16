@@ -9,6 +9,7 @@ import {MySpreadComponent} from './my/my-spread/my-spread.component';
 import {MyActivityComponent} from './my/my-activity/my-activity.component';
 import {MyInfoComponent} from './my/my-info/my-info.component';
 import {MyCommissionComponent} from './my/my-commission/my-commission.component';
+import {MyShareComponent} from './my/my-share/my-share.component';
 
 const routes: Routes = [
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'my/info', component: MyInfoComponent},
   {path: 'my/commission', component: MyCommissionComponent},
   {path: 'my/activity', component: MyActivityComponent},
+  {path: 'my/share', component: MyShareComponent},
   {path: 'favorite', component: FavoriteComponent},
   {path: 'qrcode/:id', component: QrcodeComponent},
   {path: 'activity/:id', component: ActivityComponent},
