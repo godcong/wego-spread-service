@@ -2,14 +2,13 @@
   <mat-card>
     <mat-card-title>我的活动</mat-card-title>
   </mat-card>
-  <mat-card *ngFor="let activity of userActivities">
-    <mat-card-subtitle>{{activity.Activity.name}}</mat-card-subtitle>
-    <mat-card-content>{{activity.Activity.comment}}</mat-card-content>
+  <mat-card *ngFor="let activity of activities">
+    <mat-card-subtitle>{{activity.name}}</mat-card-subtitle>
+    <mat-card-content>{{activity.comment}}</mat-card-content>
     <mat-card-actions align="end">
-      <button mat-button [routerLink]="['../../qrcode',activity.UserActivity.id]"
-              [queryParams]="{user:activity.UserActivity.spread_code}">分享
+      <button mat-button [routerLink]="['../../qrcode',activity.id]"
+              [queryParams]="{user:activity.code}">分享
       </button>
-      <button mat-button (click)="joinFavorite(activity.UserActivity.id,true)">加入收藏</button>
     </mat-card-actions>
   </mat-card>
 </mat-grid-list>

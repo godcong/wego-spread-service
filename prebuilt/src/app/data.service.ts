@@ -33,12 +33,15 @@ export class DataService {
     this.client = client;
   }
 
-  getActivityList() {
+  getActivityList(t: string) {
     return this.client.get(HOST + '/api/v0/spread/activity', {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),
-        }
+        },
+        params: {
+          type: t,
+        },
       }
     );
   }

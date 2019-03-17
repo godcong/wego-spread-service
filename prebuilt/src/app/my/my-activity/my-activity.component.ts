@@ -11,7 +11,7 @@ import {SizeService} from '../../size.service';
 export class MyActivityComponent implements OnInit {
   public size: SizeService;
   private data: DataService;
-  public userActivities: any;
+  public activities: any;
 
   constructor(size: SizeService, data: DataService) {
     this.data = data;
@@ -19,21 +19,13 @@ export class MyActivityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.getUserActivityList(false).subscribe((params: any) => {
+    this.data.getActivityList('user').subscribe((params: any) => {
       console.log(params);
-      this.userActivities = params;
+      this.activities = params;
     }, error => {
       console.log(error);
       alert(error.error.message);
     });
   }
 
-  joinFavorite(id: any, status: boolean) {
-    this.data.postFavoriteJoin(id, status).subscribe((params: any) => {
-      console.log(params);
-    }, error => {
-      console.log(error);
-      alert(error.error.message);
-    });
-  }
 }

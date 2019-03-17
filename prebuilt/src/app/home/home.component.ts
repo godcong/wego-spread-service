@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnChanges, CanActivate {
         WebTokenService.setToken(params.get('token'));
       }
     });
-    this.data.getActivityList().subscribe((ret: any) => {
+    this.data.getActivityList('public').subscribe((ret: any) => {
       this.activities = ret;
     }, error => {
       console.log(error);
