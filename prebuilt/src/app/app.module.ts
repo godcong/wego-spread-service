@@ -21,6 +21,8 @@ import { MySpreadComponent } from './my/my-spread/my-spread.component';
 import { MyInfoComponent } from './my/my-info/my-info.component';
 import { MyCommissionComponent } from './my/my-commission/my-commission.component';
 import { MyShareComponent } from './my/my-share/my-share.component';
+import { ShareCodeComponent } from './share-code/share-code.component';
+import { ActivityCodeComponent } from './activity-code/activity-code.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { MyShareComponent } from './my/my-share/my-share.component';
     MyInfoComponent,
     MyCommissionComponent,
     MyShareComponent,
+    ShareCodeComponent,
+    ActivityCodeComponent,
   ],
   imports: [
     CommonModule,
