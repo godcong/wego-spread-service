@@ -26,17 +26,15 @@ func Router(server *HTTPServer) *gin.Engine {
 	v0 := eng.Group("api").Group(version)
 	v0.GET("authorize/:activity/*uri", controller.AuthorizeActivitySpreadNotify(version))
 
-	spreadN := v0.Group("spread")
-	spreadN.GET("activity/:id", controller.ActivityShow(version))
-
-	spreadA := v0.Group("spread", middleware.AuthCheck(version))
-	spreadA.GET("activity", controller.ActivityList(version))
-	spreadA.GET("user/info", controller.UserInfo(version))
-	spreadA.GET("user/activity/show/:favorite", controller.UserActivityList(version))
-	spreadA.POST("user/activity/:id/favorite/:status", controller.UserActivityFavorite(version))
-	spreadA.GET("user/spread", controller.UserSpreadList(version))
-	spreadA.POST("user/activity/:id/join/:code", controller.UserActivityJoin(version))
-	spreadA.GET("activity/:id/share", controller.UserActivityShareGet(version))
-	spreadA.GET("spread/:id/share", controller.UserSpreadShareGet(version))
+	spreads := v0.Group("spread", middleware.AuthCheck(version))
+	spreads.GET("activities", controller.ActivityList(version))
+	spreads.GET("activities/:id", controller.ActivityShow(version))
+	spreads.GET("activities/:id/share", controller.UserActivityShareGet(version))
+	spreads.GET("users/info", controller.UserInfo(version))
+	spreads.GET("users/activity/show/:favorite", controller.UserActivityList(version))
+	spreads.GET("users/spread", controller.UserSpreadList(version))
+	spreads.POST("users/activity/:id/favorite/:status", controller.UserActivityFavorite(version))
+	spreads.POST("users/activity/:id/join/:code", controller.UserActivityJoin(version))
+	spreads.GET("spreads/:id/share", controller.UserSpreadShareGet(version))
 	return eng
 }
