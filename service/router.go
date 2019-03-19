@@ -29,12 +29,13 @@ func Router(server *HTTPServer) *gin.Engine {
 	spreads := v0.Group("spread", middleware.AuthCheck(version))
 	spreads.GET("activities", controller.ActivityList(version))
 	spreads.GET("activities/:id", controller.ActivityShow(version))
-	spreads.GET("activities/:id/share", controller.UserActivityShareGet(version))
+	spreads.GET("activities/:id/codes", controller.UserActivityCodeGet(version))
 	spreads.GET("users/info", controller.UserInfo(version))
-	spreads.GET("users/activity/show/:favorite", controller.UserActivityList(version))
-	spreads.GET("users/spread", controller.UserSpreadList(version))
-	spreads.POST("users/activity/:id/favorite/:status", controller.UserActivityFavorite(version))
-	spreads.POST("users/activity/:id/join/:code", controller.UserActivityJoin(version))
-	spreads.GET("spreads/:id/share", controller.UserSpreadShareGet(version))
+	spreads.GET("users/spreads", controller.UserSpreadList(version))
+	spreads.GET("users/spreads/:id/codes", controller.UserSpreadCodeGet(version))
+	spreads.GET("userActivities", controller.UserActivityList(version))
+	spreads.POST("userActivities/:id/favorite/:status", controller.UserActivityFavorite(version))
+	spreads.POST("userActivities/:id/join/:code", controller.UserActivityJoin(version))
+
 	return eng
 }

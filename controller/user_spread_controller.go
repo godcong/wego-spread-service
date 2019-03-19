@@ -23,8 +23,8 @@ func UserSpreadList(ver string) gin.HandlerFunc {
 	}
 }
 
-// UserSpreadShareGet 我的分享码
-func UserSpreadShareGet(ver string) gin.HandlerFunc {
+// UserSpreadCodeGet 我的分享码
+func UserSpreadCodeGet(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
 

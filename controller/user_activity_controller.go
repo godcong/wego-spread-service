@@ -61,8 +61,8 @@ func UserActivityFavorite(ver string) gin.HandlerFunc {
 	}
 }
 
-// UserActivityShareGet 活动分享
-func UserActivityShareGet(ver string) gin.HandlerFunc {
+// UserActivityCodeGet 活动分享
+func UserActivityCodeGet(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id := ctx.Param("id")
 		user := model.GetUser(ctx)
