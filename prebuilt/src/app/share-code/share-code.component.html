@@ -1,3 +1,20 @@
-<p>
-  share-code works!
-</p>
+<mat-grid-list cols="1" rowHeight='{{size.height }}'>
+  <mat-card>
+    <mat-card-title>活动码</mat-card-title>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content class="share-content">
+      <input matInput type="text" placeholder="url" [(ngModel)]="activityCode" disabled>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button ngxClipboard [cbContent]="activityCode" (cbOnSuccess)="onSuccess()">复制地址</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+      <qrcode [qrdata]="activityCode" [size]="256" [level]="'M'"></qrcode>
+    </mat-card-content>
+  </mat-card>
+</mat-grid-list>
