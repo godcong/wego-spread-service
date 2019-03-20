@@ -88,11 +88,11 @@ func UserActivityCodeGet(ver string) gin.HandlerFunc {
 	}
 }
 
-// UserActivityJoin 我申请的活动
-func UserActivityJoin(ver string) gin.HandlerFunc {
+// UserActivityAdd 我申请的活动
+func UserActivityAdd(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := model.GetUser(ctx)
-		code := ctx.Param("code")
+		code := ctx.PostForm("code")
 		act := model.Activity{
 			Code: code,
 		}
