@@ -14,13 +14,17 @@ import (
 func UserActivityList(ver string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := model.GetUser(ctx)
-		cas := ctx.Param("favorite")
+		favorite := ctx.Query("favorite")
 		act := model.NewUserActivity("")
 		act.UserID = user.ID
 
 		var session *xorm.Session
-		if cas == "favorite" {
+		if favorite == "true" {
 			session = model.Where("user_activity.is_favorite = ?", true)
+		} else if favorite == "false" {
+			session = model.Where("user_activity.is_favorite = ?", false)
+		} else {
+			//favorite == ""
 		}
 		activities, e := act.Activities(session)
 		if e != nil {
