@@ -34,7 +34,7 @@ func Router(server *HTTPServer) *gin.Engine {
 	spreads.GET("users/spreads", controller.UserSpreadList(version))
 	spreads.GET("users/spreads/:id/codes", controller.UserSpreadCodeGet(version))
 	spreads.GET("userActivities", controller.UserActivityList(version))
-	spreads.POST("userActivities/:id/favorite/:status", controller.UserActivityFavorite(version))
+	spreads.POST("userActivities/:id/favorite/:status", controller.UserActivityFavoriteUpdate(version))
 	spreads.POST("userActivities/:id/join/:code", controller.UserActivityJoin(version))
 
 	return eng
