@@ -5,7 +5,7 @@ import (
 	"github.com/godcong/wego-spread-service/controller"
 	"github.com/godcong/wego-spread-service/middleware"
 	"github.com/rakyll/statik/fs"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
