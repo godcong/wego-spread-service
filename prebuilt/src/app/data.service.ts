@@ -34,7 +34,7 @@ export class DataService {
   }
 
   getActivityList(t: string) {
-    return this.client.get(HOST + '/api/v0/spread/activity', {
+    return this.client.get(HOST + '/api/v0/spread/activities', {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),
@@ -47,7 +47,7 @@ export class DataService {
   }
 
   getActivityInfo(id: string) {
-    return this.client.get(HOST + '/api/v0/spread/activity/' + id, {
+    return this.client.get(HOST + '/api/v0/spread/activities/' + id, {
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),
@@ -57,15 +57,15 @@ export class DataService {
   }
 
   getUserActivityList(favorite: boolean) {
-    let url = '/api/v0/spread/user/activity/show/all';
-    if (true === favorite) {
-      url = '/api/v0/spread/user/activity/show/favorite';
-    }
-    return this.client.get(HOST + url, {
+    return this.client.get(HOST + '/api/v0/spread/userActivities', {
+        params: {
+          favorite: favorite.toString(),
+        },
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),
-        }
+        },
+
       }
     );
   }
@@ -117,16 +117,16 @@ export class DataService {
     );
   }
 
-  postFavoriteJoin(id: string, b: boolean) {
+  postFavoriteJoin(id: string, favorite: boolean) {
 
     return this.client.post(HOST + '/api/v0/spread/userActivities/' + id + '/favorite', null, {
+        params: {
+          favorite: favorite.toString(),
+        },
         headers: {
           'Content-Type': 'application/json',
           token: WebTokenService.getToken(),
         },
-        params: {
-          favorite: b,
-        }
       }
     );
   }
