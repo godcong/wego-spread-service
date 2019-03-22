@@ -3,6 +3,7 @@ import {SizeService} from '../size.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {DataService} from '../data.service';
 import {WechatService} from '../wechat.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-qrcode',
@@ -18,7 +19,8 @@ export class QrcodeComponent implements OnInit {
   private data: DataService;
   private wechat: WechatService;
 
-  constructor(size: SizeService, router: ActivatedRoute, data: DataService, wechat: WechatService) {
+  constructor(size: SizeService, router: ActivatedRoute, data: DataService, wechat: WechatService, loc: Location) {
+    console.log(loc.path(true));
     this.size = size;
     this.router = router;
     this.data = data;
