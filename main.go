@@ -25,9 +25,9 @@ func main() {
 	flag.Parse()
 
 	if *elk {
-		trait.InitElasticLog("wego-spread-service", nil)
+		trait.InitElasticLog("wego-spread-service")
 	} else {
-		trait.InitRotateLog(*logPath, nil)
+		trait.InitRotateLog(*logPath)
 	}
 
 	sigs := make(chan os.Signal, 1)

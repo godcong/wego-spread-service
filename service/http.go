@@ -21,7 +21,7 @@ func NewHTTPServer(cfg *config.Configure) *HTTPServer {
 	s := &HTTPServer{
 		Engine: gin.Default(),
 		config: cfg,
-		Port:   config.MustString(cfg.HTTP.Port, ":8081"),
+		Port:   config.MustString("", ":8081"),
 	}
 	return s
 }
