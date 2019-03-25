@@ -41,6 +41,9 @@ export class QrcodeComponent implements OnInit {
       console.log(params);
       this.qrcode = params.url;
       this.wechat.init(params.config);
+    }, (error: any) => {
+      console.log(error);
+      alert(error.error.message);
     });
   }
 

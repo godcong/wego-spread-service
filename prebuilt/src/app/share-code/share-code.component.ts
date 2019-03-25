@@ -39,6 +39,9 @@ export class ShareCodeComponent implements OnInit {
       console.log(params);
       this.activityCode = params.url;
       this.wechat.init(params.config);
+    }, (error: any) => {
+      console.log(error);
+      alert(error.error.message);
     });
   }
 
