@@ -38,7 +38,7 @@ func main() {
 	log.Infof("%+v", cfg)
 	model.InitDB(cfg)
 
-	c := cache.DefaultCache()
+	c := cache.RedisCache(cfg.Redis.Addr, cfg.Redis.Password, cfg.Redis.DB)
 	cache.InitWegoCache(c)
 	cache.InitStateCache(c)
 	cache.InitPropertyCache(c)

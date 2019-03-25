@@ -71,7 +71,7 @@ export class DataService {
   }
 
   getSpreadShareInfo(id: string, user: string) {
-    return this.client.get(HOST + '/api/v0/spread/spreads/' + id + '/codes', {
+    return this.client.get(HOST + '/api/v0/spread/users/spreads/' + id + '/codes', {
         params: {
           user,
         },
