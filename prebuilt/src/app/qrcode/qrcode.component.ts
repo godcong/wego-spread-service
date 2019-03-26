@@ -19,6 +19,7 @@ export class QrcodeComponent implements OnInit {
   private data: DataService;
   private wechat: WechatService;
   private url: string;
+  private userInfo: any;
 
   constructor(size: SizeService, router: ActivatedRoute, data: DataService, wechat: WechatService, loc: Location) {
     console.log(loc.path(true));
@@ -39,10 +40,20 @@ export class QrcodeComponent implements OnInit {
       console.log(params);
       this.id = params.get('id');
     });
+
+    this.data.getMyInfo().subscribe((params: any) => {
+      console.log(params);
+      this.userInfo = params;
+    }, (error: any) => {
+      console.log(error);
+      alert(error.error.message);
+    });
+
     this.data.getSpreadShareInfo(this.id, this.user, this.url).subscribe((params: any) => {
       console.log(params);
       this.qrcode = params.url;
       this.wechat.init(params.config);
+      this.wechat.shareAppMessage(this.qrcode, this.userInfo.headimgurl);
     }, (error: any) => {
       console.log(error);
       alert(error.error.message);

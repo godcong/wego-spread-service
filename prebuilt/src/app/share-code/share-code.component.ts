@@ -19,6 +19,7 @@ export class ShareCodeComponent implements OnInit {
   private data: DataService;
   private wechat: WechatService;
   private url: string;
+  private userInfo: any;
 
   constructor(size: SizeService, router: ActivatedRoute, data: DataService, wechat: WechatService, loc: Location) {
     this.size = size;
@@ -27,6 +28,7 @@ export class ShareCodeComponent implements OnInit {
     this.wechat = wechat;
     this.activityCode = 'http://localhost:8080';
     this.url = loc.path(true);
+
   }
 
   ngOnInit() {
@@ -38,10 +40,19 @@ export class ShareCodeComponent implements OnInit {
       console.log(params);
       this.id = params.get('id');
     });
+    this.data.getMyInfo().subscribe((params: any) => {
+      console.log(params);
+      this.userInfo = params;
+    }, (error: any) => {
+      console.log(error);
+      alert(error.error.message);
+    });
+
     this.data.getSpreadShareInfo(this.id, this.user, this.url).subscribe((params: any) => {
       console.log(params);
       this.activityCode = params.url;
       this.wechat.init(params.config);
+      this.wechat.shareAppMessage(this.activityCode, this.userInfo.headimgurl);
     }, (error: any) => {
       console.log(error);
       alert(error.error.message);
