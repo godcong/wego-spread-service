@@ -24,11 +24,11 @@ export class WechatService {
 
   shareAppMessage(url: string, img: string) {
     wx.onMenuShareAppMessage({
-      title: '测试1', // 分享标题
-      desc: '这个是测试页面', // 分享描述
+      title: '您的朋友给您分享了一个链接', // 分享标题
+      desc: '', // 分享描述
       link: url, // 分享链接
       imgUrl: img, // 分享图标
-      // type: '', // 分享类型,music、video或link，不填默认为link
+      type: 'link', // 分享类型,music、video或link，不填默认为link
       // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
       success() {
         // 用户确认分享后执行的回调函数
