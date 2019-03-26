@@ -3,6 +3,7 @@ import {SizeService} from '../size.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {DataService} from '../data.service';
 import {WechatService} from '../wechat.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-share-code',
@@ -17,13 +18,15 @@ export class ShareCodeComponent implements OnInit {
   private user: string;
   private data: DataService;
   private wechat: WechatService;
+  private url: string;
 
-  constructor(size: SizeService, router: ActivatedRoute, data: DataService, wechat: WechatService) {
+  constructor(size: SizeService, router: ActivatedRoute, data: DataService, wechat: WechatService, loc: Location) {
     this.size = size;
     this.router = router;
     this.data = data;
     this.wechat = wechat;
     this.activityCode = 'http://localhost:8080';
+    this.url = loc.path(true);
   }
 
   ngOnInit() {
@@ -35,7 +38,7 @@ export class ShareCodeComponent implements OnInit {
       console.log(params);
       this.id = params.get('id');
     });
-    this.data.getSpreadShareInfo(this.id, this.user).subscribe((params: any) => {
+    this.data.getSpreadShareInfo(this.id, this.user, this.url).subscribe((params: any) => {
       console.log(params);
       this.activityCode = params.url;
       this.wechat.init(params.config);

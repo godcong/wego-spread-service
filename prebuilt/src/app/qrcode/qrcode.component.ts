@@ -18,6 +18,7 @@ export class QrcodeComponent implements OnInit {
   private user: string;
   private data: DataService;
   private wechat: WechatService;
+  private url: string;
 
   constructor(size: SizeService, router: ActivatedRoute, data: DataService, wechat: WechatService, loc: Location) {
     console.log(loc.path(true));
@@ -26,6 +27,7 @@ export class QrcodeComponent implements OnInit {
     this.data = data;
     this.wechat = wechat;
     this.qrcode = 'http://localhost:8080';
+    this.url = loc.path(true);
   }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class QrcodeComponent implements OnInit {
       console.log(params);
       this.id = params.get('id');
     });
-    this.data.getSpreadShareInfo(this.id, this.user).subscribe((params: any) => {
+    this.data.getSpreadShareInfo(this.id, this.user, this.url).subscribe((params: any) => {
       console.log(params);
       this.qrcode = params.url;
       this.wechat.init(params.config);

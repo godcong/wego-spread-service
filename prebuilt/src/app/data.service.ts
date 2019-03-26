@@ -70,10 +70,11 @@ export class DataService {
     );
   }
 
-  getSpreadShareInfo(id: string, user: string) {
+  getSpreadShareInfo(id: string, user: string, url: string) {
     return this.client.get(HOST + '/api/v0/spread/users/spreads/' + id + '/codes', {
         params: {
           user,
+          url
         },
         headers: {
           'Content-Type': 'application/json',
